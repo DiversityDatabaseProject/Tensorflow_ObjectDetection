@@ -11,9 +11,8 @@ set PATH=%PATH%;C:\your\path\here\
 
 mkdir -p Tensorflow/protoc
 cd Tensorflow/protoc
-
-wget https://github.com/protocolbuffers/protobuf/releases/download/v3.20.1/protoc-3.20.1-linux-x86_64.zip
-tar -xf protoc-3.20.1-linux-x86_64.zip
+download https://github.com/protocolbuffers/protobuf/releases/download/v3.20.1/protoc-3.20.1-win64.zip
+unzip protoc-3.20.1-win64
 
  pip install --upgrade protobuf
  pip install tensorflow-text
@@ -26,7 +25,7 @@ pip3 install scipy
 pip3 install tf-models-official
 
 cd Tensorflow\models\research
-C:\Users\riose\DiversityCodes\Tensorflow_ObjectDetection\src\Tensorflow\protoc\bin\protoc object_detection\protos\*.proto --python_out=.
+<protoc bin path>\protoc object_detection\protos\*.proto --python_out=.
 copy object_detection\packages\tf2\setup.py setup.py
 python setup.py build
 python setup.py install
@@ -75,9 +74,9 @@ OK (skipped=1)
 
 
 
-wget http://download.tensorflow.org/models/object_detection/tf2/20200711/ssd_mobilenet_v2_fpnlite_640x640_coco17_tpu-8.tar.gz
+download http://download.tensorflow.org/models/object_detection/tf2/20200711/ssd_mobilenet_v2_fpnlite_640x640_coco17_tpu-8.tar.gz
 
-mkdir Tensorflow/workspace/pre-trained models
+mkdir Tensorflow/workspace/pre-trained-models
 mv ssd_mobilenet_v2_fpnlite_640x640_coco17_tpu-8.gz Tensorflow/workspace/pre-trained-models
 cd Tensorflow/workspace/pre-trained-models && tar -zxvf ssd_mobilenet_v2_fpnlite_640x640_coco17_tpu-8.tar.gz
 
