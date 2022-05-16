@@ -1,6 +1,6 @@
 # Pre-requisites (For Win10 Installation):
 
-## Create Directories under 'src' folder:
+## Create Directories:
 mkdir -p Tensorflow
 
 ## Cloning the TensorFlow model garden (TF2) to the folder 'models'
