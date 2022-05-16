@@ -34,33 +34,9 @@ cd Tensorflow/models/research/slim && pip3 install -e .
 
 # Verify Installation
 python Tensorflow/models/research/object_detection/builders/model_builder_tf2_test.py
-
+<br>
 should get the below results:
-[       OK ] ModelBuilderTF2Test.test_create_ssd_models_from_config
-[ RUN      ] ModelBuilderTF2Test.test_invalid_faster_rcnn_batchnorm_update
-INFO:tensorflow:time(__main__.ModelBuilderTF2Test.test_invalid_faster_rcnn_batchnorm_update): 0.0s
-I0516 14:51:38.354064 59520 test_util.py:2373] time(__main__.ModelBuilderTF2Test.test_invalid_faster_rcnn_batchnorm_update): 0.0s
-[       OK ] ModelBuilderTF2Test.test_invalid_faster_rcnn_batchnorm_update
-[ RUN      ] ModelBuilderTF2Test.test_invalid_first_stage_nms_iou_threshold
-INFO:tensorflow:time(__main__.ModelBuilderTF2Test.test_invalid_first_stage_nms_iou_threshold): 0.0s
-I0516 14:51:38.356058 59520 test_util.py:2373] time(__main__.ModelBuilderTF2Test.test_invalid_first_stage_nms_iou_threshold): 0.0s
-[       OK ] ModelBuilderTF2Test.test_invalid_first_stage_nms_iou_threshold
-[ RUN      ] ModelBuilderTF2Test.test_invalid_model_config_proto
-INFO:tensorflow:time(__main__.ModelBuilderTF2Test.test_invalid_model_config_proto): 0.0s
-I0516 14:51:38.358050 59520 test_util.py:2373] time(__main__.ModelBuilderTF2Test.test_invalid_model_config_proto): 0.0s
-[       OK ] ModelBuilderTF2Test.test_invalid_model_config_proto
-[ RUN      ] ModelBuilderTF2Test.test_invalid_second_stage_batch_size
-INFO:tensorflow:time(__main__.ModelBuilderTF2Test.test_invalid_second_stage_batch_size): 0.0s
-I0516 14:51:38.359047 59520 test_util.py:2373] time(__main__.ModelBuilderTF2Test.test_invalid_second_stage_batch_size): 0.0s
-[       OK ] ModelBuilderTF2Test.test_invalid_second_stage_batch_size
-[ RUN      ] ModelBuilderTF2Test.test_session
-[  SKIPPED ] ModelBuilderTF2Test.test_session
-[ RUN      ] ModelBuilderTF2Test.test_unknown_faster_rcnn_feature_extractor
-INFO:tensorflow:time(__main__.ModelBuilderTF2Test.test_unknown_faster_rcnn_feature_extractor): 0.0s
-I0516 14:51:38.361040 59520 test_util.py:2373] time(__main__.ModelBuilderTF2Test.test_unknown_faster_rcnn_feature_extractor): 0.0s
-[       OK ] ModelBuilderTF2Test.test_unknown_faster_rcnn_feature_extractor
-[ RUN      ] ModelBuilderTF2Test.test_unknown_meta_architecture
-INFO:tensorflow:time(__main__.ModelBuilderTF2Test.test_unknown_meta_architecture): 0.0s
+```
 I0516 14:51:38.362038 59520 test_util.py:2373] time(__main__.ModelBuilderTF2Test.test_unknown_meta_architecture): 0.0s
 [       OK ] ModelBuilderTF2Test.test_unknown_meta_architecture
 [ RUN      ] ModelBuilderTF2Test.test_unknown_ssd_feature_extractor
@@ -71,8 +47,7 @@ I0516 14:51:38.364032 59520 test_util.py:2373] time(__main__.ModelBuilderTF2Test
 Ran 24 tests in 18.022s
 
 OK (skipped=1)
-
-
+```
 
 download http://download.tensorflow.org/models/object_detection/tf2/20200711/ssd_mobilenet_v2_fpnlite_640x640_coco17_tpu-8.tar.gz
 
@@ -108,7 +83,8 @@ python model_configs.py
 ## Train the model
 python Tensorflow\models\research\object_detection\model_main_tf2.py --model_dir=Tensorflow\workspace\models\my_ssd_mobnet --pipeline_config_path=Tensorflow\workspace\models\my_ssd_mobnet\pipeline.config --num_train_steps=50000
 
-results:
+sample results:
+```
 INFO:tensorflow:Step 500 per-step time 0.390s
 I0516 15:49:02.200201 55000 model_lib_v2.py:705] Step 500 per-step time 0.390s
 INFO:tensorflow:{'Loss/classification_loss': 0.20576711,
@@ -121,6 +97,7 @@ I0516 15:49:02.202197 55000 model_lib_v2.py:708] {'Loss/classification_loss': 0.
  'Loss/regularization_loss': 0.15272368,
  'Loss/total_loss': 0.49562168,
  'learning_rate': 0.053333}
+```
 
 # Evaluate the model
 
