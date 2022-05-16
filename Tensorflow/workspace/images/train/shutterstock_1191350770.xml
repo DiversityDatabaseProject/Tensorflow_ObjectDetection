@@ -1,0 +1,38 @@
+<annotation>
+	<folder>train</folder>
+	<filename>shutterstock_1191350770.jpg</filename>
+	<path>C:\Users\poopo\Documents\Tensor flow object detection\TFODFace2\Tensorflow\workspace\train\shutterstock_1191350770.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>390</width>
+		<height>260</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>face</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>223</xmin>
+			<ymin>13</ymin>
+			<xmax>286</xmax>
+			<ymax>103</ymax>
+		</bndbox>
+	</object>
+	<object>
+		<name>face</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>72</xmin>
+			<ymin>79</ymin>
+			<xmax>126</xmax>
+			<ymax>147</ymax>
+		</bndbox>
+	</object>
+</annotation>

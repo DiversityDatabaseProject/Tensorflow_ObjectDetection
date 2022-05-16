@@ -1,0 +1,26 @@
+<annotation>
+	<folder>train</folder>
+	<filename>istockphoto_182176856.jpg</filename>
+	<path>C:\Users\poopo\Documents\Tensor flow object detection\TFODFace2\Tensorflow\workspace\train\istockphoto_182176856.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>612</width>
+		<height>408</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>face</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>355</xmin>
+			<ymin>82</ymin>
+			<xmax>550</xmax>
+			<ymax>374</ymax>
+		</bndbox>
+	</object>
+</annotation>
