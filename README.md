@@ -148,5 +148,6 @@ python Tensorflow\models\research\object_detection\export_tflite_graph_tf2.py \
 ## TODO
 
 - refactor codes
+- LabelImage code - not sure if we need this
 - remove unnecessary files / codes
 - create a script for all the folder creations and downloading and copying of files, etc
