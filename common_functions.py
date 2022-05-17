@@ -19,7 +19,8 @@ paths = {
     'MODEL_PATH': os.path.join('Tensorflow', 'workspace','models'), # folder for the selected models tested
     'PRETRAINED_MODEL_PATH': os.path.join('Tensorflow', 'workspace','pre-trained-models'),
     'CHECKPOINT_PATH': os.path.join('Tensorflow', 'workspace','models',CUSTOM_MODEL_NAME),
-    'DETECT_RES_PATH': os.path.join('Tensorflow', 'workspace','images','detect_res')
+    'DETECT_RES_PATH': os.path.join('Tensorflow', 'workspace','images','detect_res'),
+    'TEST_IMAGE_PATH' : os.path.join('Tensorflow', 'workspace','images', 'detect_image')
  }
 
 files = {

@@ -1,23 +1,18 @@
 import os
-import object_detection
 import tensorflow as tf
-from object_detection.utils import config_util
 from object_detection.protos import pipeline_pb2
 from google.protobuf import text_format
-from object_detection.builders import model_builder
-from object_detection.utils import label_map_util
-from object_detection.utils import visualization_utils as viz_utils
-from object_detection.builders import model_builder
-from object_detection.utils import config_util
+import urllib.request
+import tarfile
+
 
 #cluster model folder
 CUSTOM_MODEL_NAME = 'my_ssd_mobnet'
 
 #setting up the name of our pre train model, this include the name of the file from the pre train TensorFlow 2 Detection Model Zoo
 PRETRAINED_MODEL_NAME = 'ssd_mobilenet_v2_fpnlite_640x640_coco17_tpu-8'
-
-# downloading model from the tensorflow model zoo 
 PRETRAINED_MODEL_URL = 'http://download.tensorflow.org/models/object_detection/tf2/20200711/ssd_mobilenet_v2_fpnlite_640x640_coco17_tpu-8.tar.gz'
+
 
  #setting up variables
 TF_RECORD_SCRIPT_NAME = 'generate_tfrecord.py'
@@ -25,26 +20,29 @@ LABEL_MAP_NAME = 'label_map.pbtxt'
 
 #creating our path for working folder
 paths = {
-    'WORKSPACE_PATH': os.path.join('Tensorflow', 'workspace'), # high level workspace
-    'SCRIPTS_PATH': os.path.join('Tensorflow','scripts'),
-    'APIMODEL_PATH': os.path.join('Tensorflow','models'),
     'ANNOTATION_PATH': os.path.join('Tensorflow', 'workspace','annotations'), # where TF record file will be stored
     'IMAGE_PATH': os.path.join('Tensorflow', 'workspace','images'),
     'MODEL_PATH': os.path.join('Tensorflow', 'workspace','models'), # folder for the selected models tested
     'PRETRAINED_MODEL_PATH': os.path.join('Tensorflow', 'workspace','pre-trained-models'),
-    'CHECKPOINT_PATH': os.path.join('Tensorflow', 'workspace','models',CUSTOM_MODEL_NAME), # selection of the working model
-    'OUTPUT_PATH': os.path.join('Tensorflow', 'workspace','models',CUSTOM_MODEL_NAME, 'export'), 
+    'CHECKPOINT_PATH': os.path.join('Tensorflow', 'workspace','models',CUSTOM_MODEL_NAME), 
     'TFJS_PATH':os.path.join('Tensorflow', 'workspace','models',CUSTOM_MODEL_NAME, 'tfjsexport'), 
-    'TFLITE_PATH':os.path.join('Tensorflow', 'workspace','models',CUSTOM_MODEL_NAME, 'tfliteexport'), 
-    'PROTOC_PATH':os.path.join('Tensorflow','protoc')
+    'TFLITE_PATH':os.path.join('Tensorflow', 'workspace','models',CUSTOM_MODEL_NAME, 'tfliteexport')
  }
 
 files = {
     'PIPELINE_CONFIG':os.path.join('Tensorflow', 'workspace','models', CUSTOM_MODEL_NAME, 'pipeline.config'),
-    'TF_RECORD_SCRIPT': os.path.join(paths['SCRIPTS_PATH'], TF_RECORD_SCRIPT_NAME), 
-    'LABELMAP': os.path.join(paths['ANNOTATION_PATH'], LABEL_MAP_NAME)
+    'LABELMAP': os.path.join(paths['ANNOTATION_PATH'], LABEL_MAP_NAME),
+    'UNZIPPED_MODEL_NAME': os.path.join(paths['PRETRAINED_MODEL_PATH'], PRETRAINED_MODEL_NAME)
 }
 
+# Download pre-trained model
+urllib.request.urlretrieve(PRETRAINED_MODEL_URL, files['UNZIPPED_MODEL_NAME'])
+
+my_tar = tarfile.open(files['UNZIPPED_MODEL_NAME'])
+my_tar.extractall(paths['PRETRAINED_MODEL_PATH']) # specify which folder to extract to
+my_tar.close()
+
+#Create directories if not existing
 for path in paths.values():
     if not os.path.exists(path):
         if os.name == 'posix':
@@ -62,25 +60,6 @@ def create_label_map():
             f.write('\tname:\'{}\'\n'.format(label['name']))
             f.write('\tid:{}\n'.format(label['id']))
             f.write('}\n')
-
-#do i need this here?
-def build_detection_model():
-    # Load pipeline config and build a detection model
-    configs = config_util.get_configs_from_pipeline_file(files['PIPELINE_CONFIG'])
-    detection_model = model_builder.build(model_config=configs['model'], is_training=False)
-
-    # Restore checkpoint
-    ckpt = tf.compat.v2.train.Checkpoint(model=detection_model)
-    # Selecting our most train model
-    ckpt.restore(os.path.join(paths['CHECKPOINT_PATH'], 'ckpt-51')).expect_partial()
-
-    @tf.function
-    def detect_fn(image):
-        """Detect objects in image."""
-        image, shapes = detection_model.preprocess(image)
-        prediction_dict = detection_model.predict(image, shapes)
-        detections = detection_model.postprocess(prediction_dict, shapes)
-        return detections
 
 def create_pipeline_config():
     #Using protocol buffer to process the config file
