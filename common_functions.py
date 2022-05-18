@@ -5,9 +5,7 @@ from object_detection.utils import config_util
 
 #cluster model folder
 CUSTOM_MODEL_NAME = 'my_ssd_mobnet'
-
 LABEL_MAP_NAME = 'label_map.pbtxt'
-
 DETECTED_IMAGE_NAME = 'detection_test.png'
 
 paths = {

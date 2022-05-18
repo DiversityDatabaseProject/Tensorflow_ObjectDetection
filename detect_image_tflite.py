@@ -15,46 +15,41 @@
 # Edited by Maria Rosario Sebastian
 # 05/06/2022
 
-# Import packages
 import os
 import cv2
 import numpy as np
 import glob
 import tensorflow as tf
+import common_functions as cf
 
+TFLITE_MODEL_NAME = 'detect_cl.tflite'
+TF_LABELMAP_NAME = 'labels.txt'
+TF_EXPORT_FOLDER = 'tfliteexport'
+TF_INFERENCE_RES_FOLDER = 'detect_tflite_res'
+MIN_CONF_THRESHOLD = float(.5)
+TFLITE_MODEL_PATH = os.path.join(cf.paths['CHECKPOINT_PATH'], TF_EXPORT_FOLDER,TFLITE_MODEL_NAME)
+TF_LABEL_PATH = os.path.join(cf.paths['CHECKPOINT_PATH'], TF_EXPORT_FOLDER,TF_LABELMAP_NAME)
+DETECT_RES = os.path.join(cf.paths['IMAGE_PATH'],TF_INFERENCE_RES_FOLDER)
 
-TEST_IMAGE_PATH = os.path.join('Tensorflow', 'workspace','images', 'detect_image')
-MODEL_NAME = 'detect_cl.tflite'
-MODEL_PATH = os.path.join('Tensorflow', 'workspace','models','my_ssd_mobnet', 'tfliteexport',MODEL_NAME)
-LABELMAP_NAME = 'labels.txt'
-LABEL_PATH = os.path.join('Tensorflow', 'workspace','models','my_ssd_mobnet', 'tfliteexport',LABELMAP_NAME)
-DETECT_RES = os.path.join('Tensorflow', 'workspace','images','detect_tflite_res')
-min_conf_threshold = float(.5)
-
-# Get path to current working directory
-CWD_PATH = os.getcwd()
 
 # Parse input image name and directory. 
-IM_NAME = 'istockphoto_174878359.jpg'
-IM_DIR = os.path.join(CWD_PATH,TEST_IMAGE_PATH)
+IM_NAME = os.path.join(cf.paths['TEST_IMAGE_PATH'],'istockphoto_174878359.jpg')
+IM_DIR = cf.paths['TEST_IMAGE_PATH']
 
 # Define path to images and grab all image filenames
 if IM_DIR:
-    PATH_TO_IMAGES = os.path.join(CWD_PATH,IM_DIR)
+    PATH_TO_IMAGES = IM_DIR
     images = glob.glob(PATH_TO_IMAGES + '/*')
 
 elif IM_NAME:
-    PATH_TO_IMAGES = os.path.join(CWD_PATH,IM_NAME)
+    PATH_TO_IMAGES = IM_NAME
     images = glob.glob(PATH_TO_IMAGES)
 
-# Path to label map file
-PATH_TO_LABELS = os.path.join(CWD_PATH,LABEL_PATH)
-
 # Load the label map
-with open(PATH_TO_LABELS, 'r') as f:
+with open(TF_LABEL_PATH, 'r') as f:
     labels = [line.strip() for line in f.readlines()]
 
-interpreter = tf.lite.Interpreter(model_path=MODEL_PATH)
+interpreter = tf.lite.Interpreter(model_path=TFLITE_MODEL_PATH)
 interpreter.allocate_tensors()
 
 # Get model details
@@ -100,7 +95,7 @@ for image_path in images:
     ctr=0
     # Loop over all detections and draw detection box if confidence is above minimum threshold
     for i in range(len(scores)):
-        if ((scores[i] > min_conf_threshold) and (scores[i] <= 1.0)):
+        if ((scores[i] > MIN_CONF_THRESHOLD) and (scores[i] <= 1.0)):
             # Get bounding box coordinates and draw box
             # Interpreter can return coordinates that are outside of image dimensions, need to force them to be within image using max() and min()
             ymin = int(max(1,(boxes[i][0] * imH)))
@@ -121,12 +116,12 @@ for image_path in images:
     # All the results have been drawn on the image, now display the image
     #cv2.imshow('Object detector', image)
     filename=image_path.split('\\')[-1]
-    image_name = os.path.join(CWD_PATH,DETECT_RES,filename)
+    image_name = os.path.join(DETECT_RES,filename)
     cv2.imwrite(image_name, image)
 
     # Press any key to continue to next image, or press 'q' to quit
     if cv2.waitKey(0) == ord('q'):
         break
 
-# Clean up
-#cv2.destroyAllWindows()
+    # Clean up
+    #cv2.destroyAllWindows()
