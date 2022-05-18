@@ -1,87 +1,93 @@
+'''
+This script detects all images in a specified folder and outputs them in another folder
+Example:
+python detect_from_image.py  --checkpoint Tensorflow\workspace\models\my_ssd_mobnet\ckpt-51 --label_map Tensorflow\workspace\annotations\label_map.pbtxt --threshold .5 --images_folder Tensorflow\workspace\images\detect_image --output_path Tensorflow\workspace\images\detect_res
+'''
 import os
+import argparse
 import tensorflow as tf
 from object_detection.utils import label_map_util
 from object_detection.utils import visualization_utils as viz_utils
-from object_detection.builders import model_builder
 import cv2 
 import numpy as np
 from matplotlib import pyplot as plt
 import common_functions as cf
 import glob
 
-#cluster model folder
-CUSTOM_MODEL_NAME = 'my_ssd_mobnet'
-LABEL_MAP_NAME = 'label_map.pbtxt'
+def main(args):
+    CHECKPOINT = args['checkpoint']
+    LABEL_MAP = args['label_map']
+    TEST_IMAGE_PATH = args['images_folder']
+    DETECT_RES_PATH = args['output_path']
+    PARAM_THRESHOLD = args['threshold']
 
-paths = {
-    'WORKSPACE_PATH': os.path.join('Tensorflow', 'workspace'), # high level workspace
-    'SCRIPTS_PATH': os.path.join('Tensorflow','scripts'),
-    'APIMODEL_PATH': os.path.join('Tensorflow','models'),
-    'ANNOTATION_PATH': os.path.join('Tensorflow', 'workspace','annotations'), # where TF record file will be stored
-    'IMAGE_PATH': os.path.join('Tensorflow', 'workspace','images','detect_image'),
-    'MODEL_PATH': os.path.join('Tensorflow', 'workspace','models'), # folder for the selected models tested
-    'PRETRAINED_MODEL_PATH': os.path.join('Tensorflow', 'workspace','pre-trained-models'),
-    'CHECKPOINT_PATH': os.path.join('Tensorflow', 'workspace','models',CUSTOM_MODEL_NAME),
-    'DETECT_RES_PATH': os.path.join('Tensorflow', 'workspace','images','detect_res')
- }
+    MIN_THRESHOLD = float(.5)
+    if PARAM_THRESHOLD is not None:
+        MIN_THRESHOLD = float(PARAM_THRESHOLD)
 
-files = {
-    'PIPELINE_CONFIG':os.path.join('Tensorflow', 'workspace','models', CUSTOM_MODEL_NAME, 'pipeline.config'),
-    'DETECTED_IMAGE': os.path.join(paths['DETECT_RES_PATH'])
-}
+    #cluster model folder
+    CUSTOM_MODEL_NAME = 'my_ssd_mobnet'
 
-# Restore checkpoint
-ckpt = tf.compat.v2.train.Checkpoint(model=cf.detection_model)
-# Selecting our most train model
-ckpt.restore(os.path.join(paths['CHECKPOINT_PATH'], 'ckpt-51')).expect_partial()
+    # Restore checkpoint
+    ckpt = tf.compat.v2.train.Checkpoint(model=cf.detection_model)
+    # Selecting our most train model
+    ckpt.restore(CHECKPOINT).expect_partial()
 
-# select our face label
-category_index = label_map_util.create_category_index_from_labelmap(cf.files['LABELMAP'])
-#print(category_index)
+    # select our face label
+    category_index = label_map_util.create_category_index_from_labelmap(LABEL_MAP)
 
-# Reset image path
-SINGLE_IMAGE_PATH = os.path.join(paths['IMAGE_PATH'], 'detect_image', 'istockphoto_174878359.jpg')
-#print(IMAGE_PATH)
+    # Define path to images and grab all image filenames
+    images = glob.glob(TEST_IMAGE_PATH + '/*')
 
-# Define path to images and grab all image filenames
-images = glob.glob(paths['IMAGE_PATH'] + '/*')
+    # Loop over every image and perform detection
+    for image_path in images: 
+        # Loading image into python
+        img = cv2.imread(image_path)
+        #print('img: ', img)
+        image_np = np.array(img)
 
-# Loop over every image and perform detection
-for image_path in images: 
-    # Loading image into python
-    img = cv2.imread(image_path)
-    #print('img: ', img)
-    image_np = np.array(img)
+        # Converting image to a tensor and the detection function 
+        input_tensor = tf.convert_to_tensor(np.expand_dims(image_np, 0), dtype=tf.float32)
+        detections = cf.detect_fn(input_tensor)
 
-    # Converting image to a tensor and the detection function 
-    input_tensor = tf.convert_to_tensor(np.expand_dims(image_np, 0), dtype=tf.float32)
-    detections = cf.detect_fn(input_tensor)
+        # All outputs are batches tensors.
+        # Convert to numpy arrays, and take index [0] to remove the batch dimension.
+        num_detections = int(detections.pop('num_detections'))
+        detections = {key: value[0, :num_detections].numpy()
+                    for key, value in detections.items()}
+        detections['num_detections'] = num_detections
 
-    # All outputs are batches tensors.
-    # Convert to numpy arrays, and take index [0] to remove the batch dimension.
-    num_detections = int(detections.pop('num_detections'))
-    detections = {key: value[0, :num_detections].numpy()
-                for key, value in detections.items()}
-    detections['num_detections'] = num_detections
+        # Detection_classes should be ints.
+        detections['detection_classes'] = detections['detection_classes'].astype(np.int64)
 
-    # Detection_classes should be ints.
-    detections['detection_classes'] = detections['detection_classes'].astype(np.int64)
+        label_id_offset = 1
+        image_np_with_detections = image_np.copy()
 
-    label_id_offset = 1
-    image_np_with_detections = image_np.copy()
+        viz_utils.visualize_boxes_and_labels_on_image_array(
+                    image_np_with_detections,
+                    detections['detection_boxes'],
+                    detections['detection_classes']+label_id_offset,
+                    detections['detection_scores'],
+                    category_index,
+                    use_normalized_coordinates=True,
+                    max_boxes_to_draw=8,
+                    min_score_thresh=MIN_THRESHOLD,
+                    agnostic_mode=False)
 
-    viz_utils.visualize_boxes_and_labels_on_image_array(
-                image_np_with_detections,
-                detections['detection_boxes'],
-                detections['detection_classes']+label_id_offset,
-                detections['detection_scores'],
-                category_index,
-                use_normalized_coordinates=True,
-                max_boxes_to_draw=8,
-                min_score_thresh=.2,
-                agnostic_mode=False)
+        plt.imshow(cv2.cvtColor(image_np_with_detections, cv2.COLOR_BGR2RGB))
+        filename=image_path.split('\\')[-1]
+        image_name = os.path.join(DETECT_RES_PATH,filename)
+        plt.savefig(image_name)
 
-    plt.imshow(cv2.cvtColor(image_np_with_detections, cv2.COLOR_BGR2RGB))
-    filename=image_path.split('\\')[-1]
-    image_name = os.path.join(paths['DETECT_RES_PATH'],filename)
-    plt.savefig(image_name)
+if __name__ == '__main__':
+            # create parser and handle arguments
+        parser = argparse.ArgumentParser()
+        parser.add_argument('--checkpoint', required=True, help='path\\to\\checkpoint\\checkpoint_file, without the file extension, eg: path\ckpt-51')
+        parser.add_argument('--label_map', required=True, help='path\\to\\label_map.pbtxt')
+        parser.add_argument('--threshold', required=False, help='detection score threshold, eg: .5')
+        parser.add_argument('--images_folder', required=True, help='path\\to\\image\\folder')
+        parser.add_argument('--output_path', required=True, help='path\\to\\inference\results\\folder')
+
+        args = vars(parser.parse_args())
+        
+        main(args)

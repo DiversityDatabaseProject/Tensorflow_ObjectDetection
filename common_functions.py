@@ -10,7 +10,7 @@ DETECTED_IMAGE_NAME = 'detection_test.png'
 
 paths = {
     'WORKSPACE_PATH': os.path.join('Tensorflow', 'workspace'), # high level workspace
-    'SCRIPTS_PATH': os.path.join('Tensorflow','scripts'),
+    'SCRIPTS_PATH': os.path.join('Tensorflow','GenerateTFRecord'),
     'APIMODEL_PATH': os.path.join('Tensorflow','models'),
     'ANNOTATION_PATH': os.path.join('Tensorflow', 'workspace','annotations'), # where TF record file will be stored
     'IMAGE_PATH': os.path.join('Tensorflow', 'workspace','images'),

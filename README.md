@@ -52,9 +52,9 @@ This script will make an inference on the images in the above folder and save th
 Tensorflow\workspace\images\detect_image\detect_res
 ```
 Below script will test image detection with bounding box and score for a given image. <br>
-Note that checkpoint_path should contain all the files that are set in the parameters (label_map, checkpoint), including the saved model. In our repository, this should be under: Tensorflow\workspace\models\my_ssd_mobnet
+Make sure that the workspace folder and test images exist before running the script.
 ```
-python detect_from_image.py --checkpoint_path path\to\checkpoint --checkpoint_name ckpt-51 --label_map label_map.pbtxt --threshold .5 --images_folder path\to\image\folder --output_path path\to\inference\results\folder
+python detect_from_image.py  --checkpoint Tensorflow\workspace\models\my_ssd_mobnet\ckpt-51 --label_map Tensorflow\workspace\annotations\label_map.pbtxt --threshold .5 --images_folder Tensorflow\workspace\images\detect_image --output_path Tensorflow\workspace\images\detect_res
 ```
 
 ### Test Camera Detection
@@ -85,7 +85,7 @@ Tensorflow\workspace\images\detect_image\detect_tflite_res
 ```
 Run below script to make the inference test:
 ```
-python detect_image_tflite.py --tf_model path\to\models\tflitemodelname.tflite  --tf_labels path\to\labelfile\labels.txt --threshold .5 --images_folder path\to\image\folder --output_path path\to\inference esults\folder
+python detect_image_tflite.py --tf_model Tensorflow\workspace\models\my_ssd_mobnet\tfliteexport\detect_cl.tflite  --tf_labels Tensorflow\workspace\models\my_ssd_mobnet\tfliteexport\labels.txt --threshold .5 --images_folder Tensorflow\workspace\images\detect_image --output_path Tensorflow\workspace\images\detect_tflite_res
 ```
 
 ### Resources
