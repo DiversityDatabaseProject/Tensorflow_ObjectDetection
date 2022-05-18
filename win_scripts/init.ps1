@@ -11,8 +11,13 @@ Write-Host "Installing requirements.txt - DONE." -ForegroundColor Green
 Write-Host "====================================" -ForegroundColor Green
 Write-Host "Creating Tensorflow workspace directories" -ForegroundColor Green
 Write-Host "====================================" -ForegroundColor Green
-mkdir -p Tensorflow/protoc
-mkdir -p Tensorflow/workspace/pre-trained-models
+Push-Location utils
+Foreach ($i in $(Get-Content config.ini)){
+    Set-Variable -Name $i.split("=")[0] -Value $i.split("=",2)[1]
+}
+Pop-Location
+mkdir -p $PROTOC_PATH
+mkdir -p $PRE_TRAINED_MODELS_PATH
 Write-Host "Tensorflow workspace directories - DONE." -ForegroundColor Green
 # Section 3: Download Tensorflow models
 Write-Host "====================================" -ForegroundColor Green
@@ -21,19 +26,19 @@ Write-Host "====================================" -ForegroundColor Green
 Push-Location -Path "Tensorflow" 
 #removes weird error message
 $env:GIT_REDIRECT_STDERR = '2>&1'
-git clone https://github.com/tensorflow/models
+git clone $TF_MODELS_REPO
 Pop-Location
 Write-Host "Downloading tensorflow models - DONE." -ForegroundColor Green
 # Section 4: Download and install protocol buffers
 Write-Host "====================================" -ForegroundColor Green
 Write-Host "Download and install protocol buffers" -ForegroundColor Green
 Write-Host "====================================" -ForegroundColor Green
-Invoke-WebRequest https://github.com/protocolbuffers/protobuf/releases/download/v3.20.1/protoc-3.20.1-win64.zip -OutFile Tensorflow/protoc/protoc-3.20.1-win64.zip
+Invoke-WebRequest $PROTOC_BUFFERS_URL -OutFile $PROTOC_BUFFERS_FILE
 # Extract protocol buffers zip file
-Expand-Archive -Path Tensorflow/protoc/protoc-3.20.1-win64.zip -DestinationPath Tensorflow/protoc/
+Expand-Archive -Path $PROTOC_BUFFERS_FILE -DestinationPath $PROTOC_PATH
 # Add protoc bin folder to environment path
 $env:Path = (Get-Location).path+'\Tensorflow\protoc\bin;' + $env:Path
-Push-Location -Path "Tensorflow/models/research" 
+Push-Location -Path $TF_MODELS_RESEARCH
 protoc object_detection/protos/*.proto --python_out=.
 Write-Host "Download and install protocol buffers - DONE." -ForegroundColor Green
 # Section 5: Build Tensorflow libraries
