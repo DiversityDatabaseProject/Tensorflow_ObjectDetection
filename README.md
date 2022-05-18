@@ -6,7 +6,7 @@ The scripts should be run in the order they are written in this readme file.
 
 To install dependencies, create workspace folders, download and build tensorflow files, etc:
 ```
-./init
+.\init.ps1
 ```
 
 To verify the installation:
@@ -17,7 +17,7 @@ python Tensorflow/models/research/object_detection/builders/model_builder_tf2_te
 ### Image Labeller
 Run below script to configure, download and launch an image labeller.<br>
 ```
-./label_images
+.\label_images.ps1
 ```
 
 ### Model Training
@@ -28,7 +28,7 @@ Tensorflow\workspace\images\train
 ```
 If everything is OK, you can launch the train_configs.bat
 ```
-./train_configs
+.\train_configs.ps1
 ```
 
 ## Train the model
