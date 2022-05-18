@@ -51,9 +51,10 @@ This script will make an inference on the images in the above folder and save th
 ```
 Tensorflow\workspace\images\detect_image\detect_res
 ```
-Below script will test image detection with bounding box and score for a given image 
+Below script will test image detection with bounding box and score for a given image. <br>
+Note that checkpoint_path should contain all the files that are set in the parameters (label_map, checkpoint), including the saved model. In our repository, this should be under: Tensorflow\workspace\models\my_ssd_mobnet
 ```
-python detect_from_image.py
+python detect_from_image.py --checkpoint_path path\to\checkpoint --checkpoint_name ckpt-51 --label_map label_map.pbtxt --threshold .5 --images_folder path\to\image\folder --output_path path\to\inference\results\folder
 ```
 
 ### Test Camera Detection

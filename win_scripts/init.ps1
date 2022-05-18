@@ -13,7 +13,6 @@ Write-Host "Creating Tensorflow workspace directories" -ForegroundColor Green
 Write-Host "====================================" -ForegroundColor Green
 mkdir -p Tensorflow/protoc
 mkdir -p Tensorflow/workspace/pre-trained-models
-mkdir -p Tensorflow/scripts
 Write-Host "Tensorflow workspace directories - DONE." -ForegroundColor Green
 # Section 3: Download Tensorflow models
 Write-Host "====================================" -ForegroundColor Green

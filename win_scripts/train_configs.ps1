@@ -12,20 +12,21 @@ Write-Host "=====================================" -ForegroundColor Green
 Write-Host "Clone git repo generate record script" -ForegroundColor Green
 Write-Host "=====================================" -ForegroundColor Green
 # Prepare training data
-Push-Location -Path "Tensorflow/scripts" 
+Push-Location -Path "Tensorflow" 
 #removes weird error message
 $env:GIT_REDIRECT_STDERR = '2>&1'
 git clone https://github.com/nicknochnack/GenerateTFRecord
+Remove-Item -Path .\GenerateTFRecord\.git -Force -Recurse -Confirm:$false
 Pop-Location
 Write-Host "Cloning git - DONE." -ForegroundColor Green
 Write-Host "====================================" -ForegroundColor Green
 Write-Host "Prepare training data" -ForegroundColor Green
 Write-Host "====================================" -ForegroundColor Green
 # Create the train data
-python Tensorflow/scripts/generate_tfrecord.py -x Tensorflow/workspace/images/train -l Tensorflow/workspace/annotations/label_map.pbtxt -o Tensorflow/workspace/annotations/train.record
+python Tensorflow/GenerateTFRecord/generate_tfrecord.py -x Tensorflow/workspace/images/train -l Tensorflow/workspace/annotations/label_map.pbtxt -o Tensorflow/workspace/annotations/train.record
 # Create the test data
 Create the test data
-python Tensorflow/scripts/generate_tfrecord.py -x Tensorflow/workspace/images/test -l Tensorflow/workspace/annotations/label_map.pbtxt -o Tensorflow/workspace/annotations/test.record
+python Tensorflow/GenerateTFRecord/generate_tfrecord.py -x Tensorflow/workspace/images/test -l Tensorflow/workspace/annotations/label_map.pbtxt -o Tensorflow/workspace/annotations/test.record
 # Run the model_configs script
 python model_configs.py
 # Copy Model Config to Training Folder
