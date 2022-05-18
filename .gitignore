@@ -2,3 +2,4 @@ Tensorflow/workspace/models/my_ssd_mobnet_orig
 __pycache__
 *.ipynb
 tests*.*
+Tensorflow/models
