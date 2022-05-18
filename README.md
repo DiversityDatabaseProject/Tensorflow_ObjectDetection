@@ -1,4 +1,9 @@
-# Pre-requisites (For Win10 Installation):
+# Tensorflow Object Detection Model Training, Inference and TFLite Conversion
+This repository contains codes for generating, training and testing an Object Detection Model for detecting faces on images, using the pre-trained model, <a href="http://download.tensorflow.org/models/object_detection/tf2/20200711/ssd_mobilenet_v2_fpnlite_640x640_coco17_tpu-8.tar.gz">ssd_mobilenet_v2_fpnlite_640x640_coco17_tpu-8</a>. It also has a script for converting the saved model to Tensorflow Lite, and an inference test on the converted model. The TFLite model was deployed on iOS Devices in a <a href="https://github.com/DiversityDatabaseProject/face_detection_ios">separate repository<a>
+
+# Installation Instructions
+
+## Pre-requisites (For Win10 Installation):
 First off, make sure to create a virtual environment, and activate it.<br>
 Make sure to have git installed.<br>
 Note: Shell scripts (.ps1 files) should be run on Windows Powershell.<br>
