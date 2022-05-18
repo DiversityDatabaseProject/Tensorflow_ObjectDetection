@@ -42,7 +42,7 @@ python Tensorflow\models\research\object_detection\model_main_tf2.py --model_dir
 python Tensorflow\models\research\object_detection\model_main_tf2.py --model_dir=Tensorflow\workspace\models\my_ssd_mobnet --pipeline_config_path=Tensorflow\workspace\models\my_ssd_mobnet\pipeline.config --checkpoint_dir=Tensorflow\workspace\models\my_ssd_mobnet
 ```
 
-### Test Image Detection
+### Test Image Detection (Inference test)
 Before running this test, make sure there are test images in the folder:
 ```
 Tensorflow\workspace\images\detect_image
@@ -70,15 +70,10 @@ python Tensorflow\models\research\object_detection\exporter_main_v2.py  --input_
 
 ## Convert to TFLite
 ```
-python Tensorflow\models\research\object_detection\export_tflite_graph_tf2.py \
---input_shapes=4,640,640,3 \
---input_arrays=normalized_input_image_tensor \
---output_arrays='TFLite_Detection_PostProcess','TFLite_Detection_PostProcess:1','TFLite_Detection_PostProcess:2','TFLite_Detection_PostProcess:3' \
---inference_type=FLOAT \
---allow_custom_ops
+python Tensorflow\models\research\object_detection\export_tflite_graph_tf2.py --input_shapes=4,640,640,3 --input_arrays=normalized_input_image_tensor --output_arrays='TFLite_Detection_PostProcess','TFLite_Detection_PostProcess:1','TFLite_Detection_PostProcess:2','TFLite_Detection_PostProcess:3' --inference_type=FLOAT --allow_custom_ops
 ```
 
-## Test TFLite converted model
+## Test TFLite converted model (inference test)
 Before running this test, make sure there are test images in the folder:
 ```
 Tensorflow\workspace\images\detect_image
@@ -89,7 +84,7 @@ Tensorflow\workspace\images\detect_image\detect_tflite_res
 ```
 Run below script to make the inference test:
 ```
-python detect_image_tflite.py
+python detect_image_tflite.py --tf_model path\to\models\tflitemodelname.tflite  --tf_labels path\to\labelfile\labels.txt --threshold .5 --images_folder path\to\image\folder --output_path path\to\inference esults\folder
 ```
 
 ## TODO

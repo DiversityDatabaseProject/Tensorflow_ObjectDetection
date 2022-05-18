@@ -28,7 +28,6 @@ paths = {
 
 files = {
     'PIPELINE_CONFIG':os.path.join('Tensorflow', 'workspace','models', CUSTOM_MODEL_NAME, 'pipeline.config'),
-    'LABELMAP': os.path.join(paths['ANNOTATION_PATH'], LABEL_MAP_NAME),
     'DETECTED_IMAGE': os.path.join(paths['DETECT_RES_PATH'])
 }
 
@@ -38,7 +37,7 @@ ckpt = tf.compat.v2.train.Checkpoint(model=cf.detection_model)
 ckpt.restore(os.path.join(paths['CHECKPOINT_PATH'], 'ckpt-51')).expect_partial()
 
 # select our face label
-category_index = label_map_util.create_category_index_from_labelmap(files['LABELMAP'])
+category_index = label_map_util.create_category_index_from_labelmap(cf.files['LABELMAP'])
 #print(category_index)
 
 # Reset image path
