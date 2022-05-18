@@ -12,7 +12,6 @@ import glob
 #cluster model folder
 CUSTOM_MODEL_NAME = 'my_ssd_mobnet'
 LABEL_MAP_NAME = 'label_map.pbtxt'
-DETECTED_IMAGE_NAME = 'detection_test.png'
 
 paths = {
     'WORKSPACE_PATH': os.path.join('Tensorflow', 'workspace'), # high level workspace
@@ -86,5 +85,3 @@ for image_path in images:
     filename=image_path.split('\\')[-1]
     image_name = os.path.join(paths['DETECT_RES_PATH'],filename)
     plt.savefig(image_name)
-    #commented below lines for jupyter notebook
-    #plt.show()

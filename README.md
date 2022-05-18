@@ -87,6 +87,14 @@ Run below script to make the inference test:
 python detect_image_tflite.py --tf_model path\to\models\tflitemodelname.tflite  --tf_labels path\to\labelfile\labels.txt --threshold .5 --images_folder path\to\image\folder --output_path path\to\inference esults\folder
 ```
 
+### Resources
+<a href="https://github.com/nicknochnack/TFODCourse">Full Object Detection Course Github Repo</a>
+<a href="https://github.com/TannerGilbert/Tensorflow-Lite-Object-Detection-with-the-Tensorflow-Object-Detection-API">Tensorflow Lite Object Detection API Github Repo</a>
+<a href="https://www.tensorflow.org/lite/convert">TFLite Conversion Article</a>
+<a href="https://www.tensorflow.org/lite/examples/object_detection/overview"> TFLite Object Detection Article</a>
+
+<a href="https://github.com/tzutalin/labelImg">Image Labeller</a>
+
 ## TODO
 
 - refactor codes
