@@ -1,9 +1,10 @@
 # Pre-requisites (For Win10 Installation):
 First off, make sure to create a virtual environment, and activate it.<br>
 Make sure to have git installed.<br>
-Note: Shell scripts (.bat files) should be run on Windows Powershell.<br>
-Before running the scripts, make sure you are in the project root director, "Tensorflow_ObjectDetection"<br>
-The scripts should be run in the order they are written in this readme file.
+Note: Shell scripts (.ps1 files) should be run on Windows Powershell.<br>
+Before running the scripts (both ps1 and python scripts), make sure you are in the project root director, "Tensorflow_ObjectDetection"<br>
+The scripts should be run in the order they are written in this readme file.<br>
+## Install Dependencies
 To install dependencies, create workspace folders, download and build tensorflow files, etc:
 ```
 .\win_scripts\init.ps1
