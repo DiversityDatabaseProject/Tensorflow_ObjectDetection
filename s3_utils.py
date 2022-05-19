@@ -35,14 +35,18 @@ import sys
 from datetime import datetime
 import argparse
 import glob
+import requests
 
 #get aws access keys from environment variables
 s3_resource = boto3.resource(
     service_name='s3',
-    region_name=os.environ["AWS_REGION"],
-    aws_access_key_id=os.environ["AWS_KEY"],
-    aws_secret_access_key=os.environ["AWS_SECRET_KEY"]
+    region_name='eu-west-3', #os.environ["AWS_REGION"],
+    aws_access_key_id='AKIAZZPFVXXZGPMNHRDF', #os.environ["AWS_KEY"],
+    aws_secret_access_key='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' #os.environ["AWS_SECRET_KEY"]
 )
+
+user_name = os.environ['USERNAME']
+ext_ip = requests.get('https://checkip.amazonaws.com').text.strip()
 
 # multipart_threshold : Ensure that multipart uploads/downloads only happen if the size of a transfer
 # is larger than 25 MB
@@ -88,7 +92,7 @@ def multipart_upload_boto3(file_path, bucket_path):
         print('key: ', key)
         s3_resource.Object(bucket_name, key).upload_file(file_to_upload_path,
                                 #added some metadata in the ExtraArgs
-                                ExtraArgs={'Metadata': {'Sender': 'Maria', 'time': now.strftime("%d/%m/%Y-%H:%M:%S")}},
+                                ExtraArgs={'Metadata': {'IP':ext_ip,'Sender': user_name, 'time': now.strftime("%d/%m/%Y-%H:%M:%S")}},
                                 Config=config,
                                 Callback=ProgressPercentage(file_to_upload_path)
                                 )
@@ -105,7 +109,6 @@ def multipart_download_boto3(bucket_path, out_path):
         s3_key = object_summary.key
         path, filename = os.path.split(s3_key)
         
-        #only download when folder has files
         if len(filename) > 0 :
             file_path_and_name = out_path + '/' + filename
             #you need to indicate the absolute path, which is needed to append the out_path folder
@@ -125,7 +128,7 @@ def main(args):
         multipart_upload_boto3(PATH_FROM, PATH_TO)
     elif UTIL_OPTION.lower() == 'download':
         print('download')
-        multipart_download_boto3()
+        multipart_download_boto3(PATH_FROM, PATH_TO)
     else:
         print("Please specify either 'upload' or 'download' in --opt parameter.")
 
