@@ -32,7 +32,6 @@ Note: Below script will upload all files in the local folder to the S3 Bucket fo
 ```
 python tests.py --opt upload --from test --to bucket/folder
 ```
-<br>
 Note: Below script will download all files from S3 Bucket folder to the local folder.
 ```
 python tests.py --opt download --from bucket/folder --to test
