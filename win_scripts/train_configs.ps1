@@ -29,7 +29,6 @@ Write-Host "====================================" -ForegroundColor Green
 # Create the train data
 python $TRAIN_TFREC_PATH/generate_tfrecord.py -x $TRAIN_TRAIN_IMGS -l $TRAIN_ANNOTATIONS/label_map.pbtxt -o $TRAIN_ANNOTATIONS/train.record
 # Create the test data
-Create the test data
 python $TRAIN_TFREC_PATH/generate_tfrecord.py -x $TRAIN_TEST_IMGS -l $TRAIN_ANNOTATIONS/label_map.pbtxt -o $TRAIN_ANNOTATIONS/test.record
 # Run the model_configs script
 python model_configs.py
