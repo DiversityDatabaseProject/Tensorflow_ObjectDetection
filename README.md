@@ -30,11 +30,11 @@ Run below script to configure, download and launch an image labeller.<br>
 This python script contains upload / download functions to and from S3 Bucket folders<br>
 Note: Below script will upload all files in the local folder to the S3 Bucket folder.
 ```
-python tests.py --opt upload --from test --to bucket/folder
+python s3_utils.py --opt upload --from test --to bucket/folder
 ```
 Note: Below script will download all files from S3 Bucket folder to the local folder.
 ```
-python tests.py --opt download --from bucket/folder --to test
+python s3_utils.py --opt download --from bucket/folder --to test
 ```
 
 ### Model Training
