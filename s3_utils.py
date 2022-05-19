@@ -40,9 +40,9 @@ import requests
 #get aws access keys from environment variables
 s3_resource = boto3.resource(
     service_name='s3',
-    region_name='eu-west-3', #os.environ["AWS_REGION"],
-    aws_access_key_id='AKIAZZPFVXXZGPMNHRDF', #os.environ["AWS_KEY"],
-    aws_secret_access_key='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' #os.environ["AWS_SECRET_KEY"]
+    region_name=os.environ["AWS_REGION"],
+    aws_access_key_id=os.environ["AWS_KEY"],
+    aws_secret_access_key=os.environ["AWS_SECRET_KEY"]
 )
 
 user_name = os.environ['USERNAME']
