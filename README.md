@@ -26,6 +26,18 @@ Run below script to configure, download and launch an image labeller.<br>
 .\win_scripts\label_images.ps1
 ```
 
+### AWS S3 Multipart Uploader / Downloader
+This python script contains upload / download functions to and from S3 Bucket folders<br>
+Note: Below script will upload all files in the local folder to the S3 Bucket folder.
+```
+python tests.py --opt upload --from test --to bucket/folder
+```
+<br>
+Note: Below script will download all files from S3 Bucket folder to the local folder.
+```
+python tests.py --opt download --from bucket/folder --to test
+```
+
 ### Model Training
 First, make sure to copy your annotated test and train images in the corresponding folders.<br>
 ```
