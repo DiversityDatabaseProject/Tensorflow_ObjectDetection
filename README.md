@@ -113,6 +113,6 @@ python detect_image_tflite.py --tf_model Tensorflow\workspace\models\my_ssd_mobn
 
 ## TODO
 
-- refactor codes
-- test the scripts
-- remove unnecessary files / codes
+- test the bash and powershell scripts
+- edit readme file for instructions on launching ubuntu shell scripts
+- add error handling in the scripts
