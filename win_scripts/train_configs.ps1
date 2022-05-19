@@ -1,6 +1,5 @@
 # This batch file will prepare and call the training script
-# To run, type .\train_configs.ps1 on windows powershell
-# Make sure you are in the git repository's root directory
+# To run, type .\win_scripts\train_configs.ps1 on windows powershell from root dir of repository
 Write-Host "====================================" -ForegroundColor Green
 Write-Host "Create Training directories" -ForegroundColor Green
 Write-Host "====================================" -ForegroundColor Green

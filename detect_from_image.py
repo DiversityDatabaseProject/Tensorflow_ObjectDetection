@@ -25,9 +25,6 @@ def main(args):
     if PARAM_THRESHOLD is not None:
         MIN_THRESHOLD = float(PARAM_THRESHOLD)
 
-    #cluster model folder
-    CUSTOM_MODEL_NAME = 'my_ssd_mobnet'
-
     # Restore checkpoint
     ckpt = tf.compat.v2.train.Checkpoint(model=cf.detection_model)
     # Selecting our most train model

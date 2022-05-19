@@ -1,6 +1,5 @@
 ﻿# This batch file will install the python package requirements, create the Tensorflow workspace directory, and download files to build Tensorflow and the required libraries
-# To run, type .\init.ps1 on windows powershell
-# Make sure you are in the git repository's root directory
+# To run, type .\win_scripts\init.ps1 on windows powershell from root dir of repository
 # Section 1: Install required packages
 Write-Host "====================================" -ForegroundColor Green
 Write-Host "Installing requirements.txt contents" -ForegroundColor Green

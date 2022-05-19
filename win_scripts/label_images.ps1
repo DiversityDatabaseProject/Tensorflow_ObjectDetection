@@ -1,6 +1,5 @@
 # This batch file will download and install the scripts (from git repository) for image labeling
-# To run, type .\label_images.ps1 on windows powershell
-# Make sure you are in the git repository's root directory
+# To run, type .\win_scripts\label_images.ps1 on windows powershell from root dir of repository
 Write-Host "====================================" -ForegroundColor Green
 Write-Host "Creating directories" -ForegroundColor Green
 Write-Host "====================================" -ForegroundColor Green
