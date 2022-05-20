@@ -4,7 +4,7 @@ This repository contains codes for generating, training and testing an Object De
 # Installation Instructions
 
 ## Pre-requisites
-- Create Python virtual environmentand and activate it. I STRONGLY advise against 'conda', at least NOT for Windows. It will mess up your life. And give you nightmares. And lots of brain cells dying for nothing.<br>
+- Create Python3.x virtual environmentand and activate it. I STRONGLY advise against 'conda', at least NOT for Windows. It will mess up your life. And give you nightmares. And lots of brain cells dying for nothing.<br>
 - git<br>
 
 ## About the Shell Scripts
