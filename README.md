@@ -3,11 +3,18 @@ This repository contains codes for generating, training and testing an Object De
 
 # Installation Instructions
 
-First off, make sure to create a virtual environment, and activate it.<br>
-Make sure to have git installed.<br>
-## Shell Scripts:
-There are separate scripts for Windows and Ubuntu installations. The Windows Powershell scripts are under the 'win_scripts' folder, and the Ubuntu bash scripts are under the 'ubuntu' folder.<br>
-Note: Shell scripts (.ps1 files) should be run on Windows Powershell.<br>
+## Pre-requisites
+- Create Python virtual environmentand and activate it.<br>
+I STRONGLY advise against 'conda', at least for Windows. It will mess up your life. And give you nightmares. And lots of brain cells dying for nothing.<br>
+- git<br>
+
+## About the Shell Scripts
+Windows Powershell (.ps1 files) should be run on Windows Powershell, not on the old DOS-like command prompt.<br><br>
+For Ubuntu, there will be cases when there will be strange characters added at the end of each line in the ubuntu scripts as a consequence of the transformation from Windows to Linux.<br>
+To get rid of this, you can run the below script on all the .sh files to remove the extra characters:
+```
+sed -i 's/\r//g' <replace_this_with_your_script.sh>
+```
 Before running the scripts (both shell scripts and python scripts), make sure you are in the project root directory, "Tensorflow_ObjectDetection"<br>
 The scripts should be run in the order they are written in this readme file.<br>
 ## Install Dependencies
