@@ -8,7 +8,7 @@ Make sure to have git installed.<br>
 ## Shell Scripts:
 There are separate scripts for Windows and Ubuntu installations. The Windows Powershell scripts are under the win_scripts folder, and the Ubuntu bash scripts are under the ubuntu folder.<br>
 Note: Shell scripts (.ps1 files) should be run on Windows Powershell.<br>
-Before running the scripts (both ps1 and python scripts), make sure you are in the project root directory, "Tensorflow_ObjectDetection"<br>
+Before running the scripts (both shell scripts and python scripts), make sure you are in the project root directory, "Tensorflow_ObjectDetection"<br>
 The scripts should be run in the order they are written in this readme file.<br>
 ## Install Dependencies
 To install dependencies, create workspace folders, download and build tensorflow files, etc.<br>
