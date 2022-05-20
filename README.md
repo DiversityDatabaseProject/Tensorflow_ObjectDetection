@@ -6,7 +6,7 @@ This repository contains codes for generating, training and testing an Object De
 First off, make sure to create a virtual environment, and activate it.<br>
 Make sure to have git installed.<br>
 ## Shell Scripts:
-There are separate scripts for Windows and Ubuntu installations. The Windows Powershell scripts are under the win_scripts folder, and the Ubuntu bash scripts are under the ubuntu folder.<br>
+There are separate scripts for Windows and Ubuntu installations. The Windows Powershell scripts are under the 'win_scripts' folder, and the Ubuntu bash scripts are under the 'ubuntu' folder.<br>
 Note: Shell scripts (.ps1 files) should be run on Windows Powershell.<br>
 Before running the scripts (both shell scripts and python scripts), make sure you are in the project root directory, "Tensorflow_ObjectDetection"<br>
 The scripts should be run in the order they are written in this readme file.<br>
@@ -41,11 +41,11 @@ For Ubuntu:
 This python script contains upload / download functions to and from S3 Bucket folders<br>
 Note: Below script will upload all files in the local folder to the S3 Bucket folder.
 ```
-python s3_utils.py --opt upload --from test --to bucket/folder
+python s3_utils.py --opt upload --from local/path --to bucket/folder
 ```
 Note: Below script will download all files from S3 Bucket folder to the local folder.
 ```
-python s3_utils.py --opt download --from bucket/folder --to test
+python s3_utils.py --opt download --from bucket/folder --to local/path
 ```
 
 ### Model Training
@@ -132,3 +132,4 @@ python detect_image_tflite.py --tf_model Tensorflow\workspace\models\my_ssd_mobn
 - include default values to python parameters, if none given by user
 - test the bash and powershell scripts
 - add error handling in the scripts
+- check the codes for camera detection issues
