@@ -24,8 +24,9 @@ TODO: option to loop through files in a directory for multiple uploads
       logging
 Edited by: Maria Rosario Sebastian
 Modifications
-    - added input parameters
+    - added input parameters (argparse)
     - uploads and downloads multiple files from a folder instead of one file
+    - user metadata
 """
 import boto3
 from boto3.s3.transfer import TransferConfig
@@ -45,6 +46,7 @@ s3_resource = boto3.resource(
     aws_secret_access_key=os.environ["AWS_SECRET_KEY"]
 )
 
+# User Metadata to include in uploading to S3 Bucket
 user_name = os.environ['USERNAME']
 ext_ip = requests.get('https://checkip.amazonaws.com').text.strip()
 
