@@ -2,6 +2,11 @@
 This script detects all images in a specified folder and outputs them in another folder
 Example:
 python detect_from_image.py  --checkpoint Tensorflow\workspace\models\my_ssd_mobnet\ckpt-51 --label_map Tensorflow\workspace\annotations\label_map.pbtxt --threshold .5 --images_folder Tensorflow\workspace\images\detect_image --output_path Tensorflow\workspace\images\detect_res
+Source: https://github.com/nicknochnack/TFODCourse
+Modifications: Maria Rosario SEBASTIAN, May 2022
+- added parameter inputs (argparse)
+- detecting multiple images from a given folder, instead of just one
+- saves the images in a given folder instead of showing them as a pop-up window
 '''
 import os
 import argparse

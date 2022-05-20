@@ -1,3 +1,10 @@
+'''
+This python script uses the saved model for detecting faces using the computer's camera
+Refactored from a code on Jupyter notebook.
+Source: https://github.com/nicknochnack/TFODCourse
+Modifications: Maria Rosario SEBASTIAN, May 2022
+Note: This code does not currently work, needs to be fixed
+'''
 from object_detection.utils import visualization_utils as viz_utils
 from object_detection.utils import label_map_util
 import cv2

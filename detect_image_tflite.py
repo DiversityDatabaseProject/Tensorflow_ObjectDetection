@@ -1,19 +1,24 @@
-######## Webcam Object Detection Using Tensorflow-trained Classifier #########
-# Source: https://github.com/JerryKurata/TFlite-object-detection/blob/main/TFLite_detection_image.py
-# Author: Evan Juras
-# Date: 9/28/19
-# Description: 
-# This program uses a TensorFlow Lite object detection model to perform object 
-# detection on an image or a folder full of images. It draws boxes and scores 
-# around the objects of interest in each image.
-#
-# This code is based off the TensorFlow Lite image classification example at:
-# https://github.com/tensorflow/tensorflow/blob/master/tensorflow/lite/examples/python/label_image.py
-#
-# I added my own method of drawing boxes and labels using OpenCV.
-# 
-# Edited by Maria Rosario Sebastian
-# 05/06/2022
+'''
+Webcam Object Detection Using Tensorflow-trained Classifier #########
+Source: https://github.com/JerryKurata/TFlite-object-detection/blob/main/TFLite_detection_image.py
+Author: Evan Juras
+Date: 9/28/19
+Description: 
+This program uses a TensorFlow Lite object detection model to perform object 
+detection on an image or a folder full of images. It draws boxes and scores 
+around the objects of interest in each image.
+
+This code is based off the TensorFlow Lite image classification example at:
+https://github.com/tensorflow/tensorflow/blob/master/tensorflow/lite/examples/python/label_image.py
+I added my own method of drawing boxes and labels using OpenCV.
+
+Edited by Maria Rosario Sebastian
+05/06/2022
+- added input parameters (argparse)
+- corrected the indexes of the output for scores, bbox coordinates, class and num detections
+- saves detected images in a given folder instead of showing them on pop-up window. 
+''' 
+
 
 import os
 import argparse

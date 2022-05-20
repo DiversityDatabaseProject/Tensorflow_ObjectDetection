@@ -1,6 +1,6 @@
 #!/bin/bash
 # This batch file will download and install the scripts (from git repository) for image labeling
-# To run, type .\win_scripts\label_images.ps1 on windows powershell from root dir of repository
+# To run, type .\ubuntu\label_images.sh on the terminal on the terminal from root dir of repository
 echo "===================================="
 echo "Creating directories"
 echo "===================================="

@@ -25,7 +25,7 @@ TODO: option to loop through files in a directory for multiple uploads
 Edited by: Maria Rosario Sebastian
 Modifications
     - added input parameters (argparse)
-    - uploads and downloads multiple files from a folder instead of one file
+    - uploads and downloads multiple files from a folder instead of one file, mentioned as TODO above.
     - user metadata
 """
 import boto3

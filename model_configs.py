@@ -1,3 +1,10 @@
+'''
+This python script contains configuration settings for model training,
+creating the class label (label_map.pbtxt)
+and creating the pipeline config file (pipeline.config)
+Refactored from a code on Jupyter notebook by Maria Rosario SEBASTIAN, May 2022
+Source: https://github.com/nicknochnack/TFODCourse
+'''
 import os
 import tensorflow as tf
 from object_detection.protos import pipeline_pb2

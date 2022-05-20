@@ -1,3 +1,8 @@
+'''
+This python script contains constants and function that are used by the other codes.
+Author: Maria Rosario SEBASTIAN
+Date: May 2022
+'''
 import os
 import configparser
 import tensorflow as tf

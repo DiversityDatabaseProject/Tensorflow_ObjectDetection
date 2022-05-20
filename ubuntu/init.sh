@@ -1,6 +1,6 @@
 #!/bin/bash
 # This batch file will install the python package requirements, create the Tensorflow workspace directory, and download files to build Tensorflow and the required libraries
-# To run, type .\win_scripts\init.ps1 on windows powershell from root dir of repository
+# To run, type .\ubuntu\init.sh on the terminal from root dir of repository
 # Section 1: Install required packages
 echo "===================================="
 echo "Installing requirements.txt contents"

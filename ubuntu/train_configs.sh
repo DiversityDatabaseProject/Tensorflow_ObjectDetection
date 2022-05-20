@@ -1,6 +1,6 @@
 #!/bin/bash
 # This batch file will prepare and call the training script
-# To run, type .\win_scripts\train_configs.ps1 on windows powershell from root dir of repository
+# To run, type ./ubuntu/train_configs.sh on the terminal on the terminal from root dir of repository
 echo "===================================="
 echo "Create Training directories"
 echo "===================================="
