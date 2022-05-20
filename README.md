@@ -8,6 +8,7 @@ This repository contains codes for generating, training and testing an Object De
 - git<br>
 
 ## About the Shell Scripts
+This project contains shell scripts for installation on Windows and Ubuntu.<br>
 Windows Powershell (.ps1 files) should be run on Windows Powershell, not on the old DOS-like command prompt.<br><br>
 For Ubuntu, there will be cases when there will be strange characters added at the end of each line in the ubuntu scripts as a consequence of the transformation from Windows to Linux.<br>
 To get rid of this, you can run the below script on all the .sh files to remove the extra characters:
