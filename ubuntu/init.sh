@@ -31,12 +31,8 @@ echo "Downloading tensorflow models - DONE."
 echo "===================================="
 echo "Download and install protocol buffers"
 echo "===================================="
-pushd $PROTOC_PATH
-wget $PROTOC_BUFFERS_URL 
-tar -zxvf $PROTOC_BUFFERS_FILE
-popd
-# Add protoc bin folder to environment path
-export PATH="Tensorflow/protoc/bin:$PATH"
+sudo apt-get update
+sudo apt-get install protobuf-compiler
 pushd $TF_MODELS_RESEARCH
 protoc object_detection/protos/*.proto --python_out=.
 echo "Download and install protocol buffers - DONE."
