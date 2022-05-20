@@ -3,16 +3,22 @@ This repository contains codes for generating, training and testing an Object De
 
 # Installation Instructions
 
-## Pre-requisites (For Win10 Installation):
 First off, make sure to create a virtual environment, and activate it.<br>
 Make sure to have git installed.<br>
+## Shell Scripts:
+There are separate scripts for Windows and Ubuntu installations. The Windows Powershell scripts are under the win_scripts folder, and the Ubuntu bash scripts are under the ubuntu folder.<br>
 Note: Shell scripts (.ps1 files) should be run on Windows Powershell.<br>
 Before running the scripts (both ps1 and python scripts), make sure you are in the project root directory, "Tensorflow_ObjectDetection"<br>
 The scripts should be run in the order they are written in this readme file.<br>
 ## Install Dependencies
-To install dependencies, create workspace folders, download and build tensorflow files, etc:
+To install dependencies, create workspace folders, download and build tensorflow files, etc.<br>
+For Windows:
 ```
 .\win_scripts\init.ps1
+```
+For Ubuntu:
+```
+./ubuntu/init.sh
 ```
 
 To verify the installation:
@@ -22,8 +28,13 @@ python Tensorflow/models/research/object_detection/builders/model_builder_tf2_te
 
 ### Image Labeller
 Run below script to configure, download and launch an image labeller.<br>
+For Windows:
 ```
 .\win_scripts\label_images.ps1
+```
+For Ubuntu:
+```
+./ubuntu/label_images.sh
 ```
 
 ### AWS S3 Multipart Uploader / Downloader
@@ -43,9 +54,14 @@ First, make sure to copy your annotated test and train images in the correspondi
 Tensorflow\workspace\images\test
 Tensorflow\workspace\images\train
 ```
-If everything is OK, you can launch the train_configs.bat
+If everything is OK, you can launch the train_configs.bat<br>
+For Windows:
 ```
 .\win_scripts\train_configs.ps1
+```
+For Ubuntu:
+```
+./ubuntu/train_configs.sh
 ```
 
 ## Train the model
@@ -113,6 +129,6 @@ python detect_image_tflite.py --tf_model Tensorflow\workspace\models\my_ssd_mobn
 
 ## TODO
 
+- include default values to python parameters, if none given by user
 - test the bash and powershell scripts
-- edit readme file for instructions on launching ubuntu shell scripts
 - add error handling in the scripts
