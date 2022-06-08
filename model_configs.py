@@ -13,12 +13,23 @@ import urllib.request
 import tarfile
 import common_functions as cf
 
-# Download pre-trained model
-urllib.request.urlretrieve(cf.PRETRAINED_MODEL_URL, cf.files['UNZIPPED_MODEL_NAME'])
+def setup_pretrained_model():
+    # Download pre-trained model
+    urllib.request.urlretrieve(cf.PRETRAINED_MODEL_URL, cf.files['UNZIPPED_MODEL_NAME'])
 
-my_tar = tarfile.open(cf.files['UNZIPPED_MODEL_NAME'])
-my_tar.extractall(cf.paths['PRETRAINED_MODEL_PATH']) # specify which folder to extract to
-my_tar.close()
+    my_tar = tarfile.open(cf.files['UNZIPPED_MODEL_NAME'])
+
+    # Create extract folder
+    if not os.path.exists(cf.paths['PRETRAINED_MODEL_PATH']):
+            if os.name == 'posix':
+                os.makedirs(cf.paths['PRETRAINED_MODEL_PATH'])
+            if os.name == 'nt':
+                os.makedirs(cf.paths['PRETRAINED_MODEL_PATH'])
+
+    # Extract to folder
+    my_tar.extractall(cf.paths['PRETRAINED_MODEL_PATH'])
+    my_tar.close()
+
 
 def create_label_map():
     #creating a map to the label in a text file 
@@ -59,5 +70,7 @@ def create_pipeline_config():
         f.write(config_text)
 
 if __name__ == '__main__':
+    #urllib.request.urlretrieve(cf.PRETRAINED_MODEL_URL, cf.files['UNZIPPED_MODEL_NAME'])
+    setup_pretrained_model()
     create_label_map()
     create_pipeline_config()

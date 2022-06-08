@@ -18,7 +18,14 @@ Pop-Location
 mkdir -p $PROTOC_PATH
 mkdir -p $PRE_TRAINED_MODELS_PATH
 Write-Host "Tensorflow workspace directories - DONE." -ForegroundColor Green
-# Section 3: Download Tensorflow models
+Write-Host "====================================" -ForegroundColor Green
+Write-Host "Create Training directories" -ForegroundColor Green
+Write-Host "====================================" -ForegroundColor Green
+mkdir -p $TRAIN_TEST_IMGS
+mkdir -p $TRAIN_TRAIN_IMGS
+mkdir -p $TFLITE_INFERENCE_RES
+Write-Host "Create directories - DONE." -ForegroundColor Green
+# Section 4: Download Tensorflow models
 Write-Host "====================================" -ForegroundColor Green
 Write-Host "Download Tensorflow models" -ForegroundColor Green
 Write-Host "====================================" -ForegroundColor Green
@@ -28,7 +35,7 @@ $env:GIT_REDIRECT_STDERR = '2>&1'
 git clone $TF_MODELS_REPO
 Pop-Location
 Write-Host "Downloading tensorflow models - DONE." -ForegroundColor Green
-# Section 4: Download and install protocol buffers
+# Section 5: Download and install protocol buffers
 Write-Host "====================================" -ForegroundColor Green
 Write-Host "Download and install protocol buffers" -ForegroundColor Green
 Write-Host "====================================" -ForegroundColor Green
@@ -40,7 +47,7 @@ $env:Path = (Get-Location).path+'\Tensorflow\protoc\bin;' + $env:Path
 Push-Location -Path $TF_MODELS_RESEARCH
 protoc object_detection/protos/*.proto --python_out=.
 Write-Host "Download and install protocol buffers - DONE." -ForegroundColor Green
-# Section 5: Build Tensorflow libraries
+# Section 6: Build Tensorflow libraries
 Write-Host "====================================" -ForegroundColor Green
 Write-Host "Build Tensorflow libraries" -ForegroundColor Green
 Write-Host "====================================" -ForegroundColor Green

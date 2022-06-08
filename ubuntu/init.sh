@@ -18,7 +18,15 @@ eval "$CFG_CONTENT"
 mkdir -p $PROTOC_PATH
 mkdir -p $PRE_TRAINED_MODELS_PATH
 echo "Tensorflow workspace directories - DONE."
-# Section 3: Download Tensorflow models
+# Section 3: Create Training directories
+echo "===================================="
+echo "Create Training directories"
+echo "===================================="
+mkdir -p "$TRAIN_TEST_IMGS"
+mkdir -p "$TRAIN_TRAIN_IMGS"
+mkdir -p "$TFLITE_INFERENCE_RES"
+echo "Training and test directories - DONE."
+# Section 4: Download Tensorflow models
 echo "===================================="
 echo "Download Tensorflow models"
 echo "===================================="
@@ -27,7 +35,7 @@ pushd Tensorflow
 git clone $TF_MODELS_REPO
 popd
 echo "Downloading tensorflow models - DONE."
-# Section 4: Download and install protocol buffers
+# Section 5: Download and install protocol buffers
 echo "===================================="
 echo "Download and install protocol buffers"
 echo "===================================="
@@ -36,7 +44,7 @@ sudo apt-get install protobuf-compiler
 pushd $TF_MODELS_RESEARCH
 protoc object_detection/protos/*.proto --python_out=.
 echo "Download and install protocol buffers - DONE."
-# Section 5: Build Tensorflow libraries
+# Section 6: Build Tensorflow libraries
 echo "===================================="
 echo "Build Tensorflow libraries"
 echo "===================================="

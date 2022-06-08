@@ -15,6 +15,7 @@ config.read('utils/config.ini')
 #From config file
 #setting up the name of our pre train model, this include the name of the file from the pre train TensorFlow 2 Detection Model Zoo
 PRETRAINED_MODEL_NAME = config['MODELS']['PRETRAINED_MODEL_NAME']
+UNZIPPED_MODEL = config['MODELS']['UNZIPPED_MODEL']
 PRETRAINED_MODEL_URL = config['MODELS']['PRETRAINED_MODEL_URL']
 LABEL_MAP_NAME=config['TRAIN']['LABEL_MAP_NAME']
 
@@ -39,7 +40,7 @@ files = {
     'PIPELINE_CONFIG': config['TRAIN']['PIPELINE_CONFIG'],
     'LABELMAP': os.path.join(paths['ANNOTATION_PATH'], LABEL_MAP_NAME),
     'DETECTED_IMAGE': os.path.join(paths['DETECT_RES_PATH'], DETECTED_IMAGE_NAME),
-    'UNZIPPED_MODEL_NAME': os.path.join(paths['PRETRAINED_MODEL_PATH'], PRETRAINED_MODEL_NAME)
+    'UNZIPPED_MODEL_NAME': os.path.join(paths['PRETRAINED_MODEL_PATH'], UNZIPPED_MODEL)
 }
 
 #Create directories if not existing
@@ -50,12 +51,11 @@ for path in paths.values():
         if os.name == 'nt':
             os.makedirs(path)
 
-configs = config_util.get_configs_from_pipeline_file(files['PIPELINE_CONFIG'])
-detection_model = model_builder.build(model_config=configs['model'], is_training=False)
-
 @tf.function
 def detect_fn(image):
     """Detect objects in image."""
+    configs = config_util.get_configs_from_pipeline_file(files['PIPELINE_CONFIG'])
+    detection_model = model_builder.build(model_config=configs['model'], is_training=False)
     image, shapes = detection_model.preprocess(image)
     prediction_dict = detection_model.predict(image, shapes)
     detections = detection_model.postprocess(prediction_dict, shapes)
