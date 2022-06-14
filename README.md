@@ -27,12 +27,14 @@ For Ubuntu:
 ```
 ./ubuntu/init.sh
 ```
+<img src="https://github.com/DiversityDatabaseProject/Tensorflow_ObjectDetection/blob/main/img/win_init_screenshot.PNG"/>
 
 To verify the installation:
 ```
 python Tensorflow/models/research/object_detection/builders/model_builder_tf2_test.py
 ```
-
+<img src="https://github.com/DiversityDatabaseProject/Tensorflow_ObjectDetection/blob/main/img/win_verify_installation.PNG"/>
+  
 ### 2. Model Training set up and configs
 Before doing this step, make sure your annotated test and train images are ready. You can use the <a href="https://github.com/DiversityDatabaseProject/Tensorflow_ObjectDetection/edit/main/README.md#image-labeller">image labeling tool</a> to label the images.<br>
 Make sure to copy your annotated test and train images in the corresponding folders.<br>
@@ -49,23 +51,30 @@ For Ubuntu:
 ```
 ./ubuntu/train_configs.sh
 ```
+ 
+<img src="https://github.com/DiversityDatabaseProject/Tensorflow_ObjectDetection/blob/main/img/win_train_configs.PNG"/>
 
 ### 3. Train the model
 ```
 python Tensorflow\models\research\object_detection\model_main_tf2.py --model_dir=Tensorflow\workspace\models\my_ssd_mobnet --pipeline_config_path=Tensorflow\workspace\models\my_ssd_mobnet\pipeline.config --num_train_steps=50000
 ```
 
+<img src="https://github.com/DiversityDatabaseProject/Tensorflow_ObjectDetection/blob/main/img/win_train.PNG"/>
+
 ### 4. Evaluate the model
 ```
 python Tensorflow\models\research\object_detection\model_main_tf2.py --model_dir=Tensorflow\workspace\models\my_ssd_mobnet --pipeline_config_path=Tensorflow\workspace\models\my_ssd_mobnet\pipeline.config --checkpoint_dir=Tensorflow\workspace\models\my_ssd_mobnet
 ```
 
+<img src="https://github.com/DiversityDatabaseProject/Tensorflow_ObjectDetection/blob/main/img/win_evaluation.PNG"/>
 
 ### 5. Save the Model (Freezing the Graph)
 ```
 python Tensorflow\models\research\object_detection\export_tflite_graph_tf2.py  --pipeline_config_path=Tensorflow\workspace\models\my_ssd_mobnet\pipeline.config --trained_checkpoint_dir=Tensorflow\workspace\models\my_ssd_mobnet --output_directory=Tensorflow\workspace\models\my_ssd_mobnet\export
 ```
 
+<img src="https://github.com/DiversityDatabaseProject/Tensorflow_ObjectDetection/blob/main/img/win_saved_model.PNG"/>
+  
 ### 6. Test Image Detection (Inference test)
 Before running this test, make sure there are test images in the folder:
 ```
@@ -81,6 +90,8 @@ Make sure that the workspace folder and test images exist before running the scr
 python detect_from_image.py  --checkpoint Tensorflow\workspace\models\my_ssd_mobnet\ckpt-51 --label_map Tensorflow\workspace\annotations\label_map.pbtxt --threshold .5 --images_folder Tensorflow\workspace\images\detect_image --output_path Tensorflow\workspace\images\detect_res
 ```
 
+<img src="https://github.com/DiversityDatabaseProject/Tensorflow_ObjectDetection/blob/main/img/win_detect_res.PNG"/>
+  
 ### 7. Test Camera Detection
 Note: for some reason, I did not see the detections from my camera.<br>
 TODO: check the codes for issues
@@ -89,11 +100,15 @@ python detect_from_cam.py
 ```
 Press 'q' to quit.
 
+<img src="https://github.com/DiversityDatabaseProject/Tensorflow_ObjectDetection/blob/main/img/win_live_cam_detection.PNG"/>
+
 ### 8. Convert to TFLite (commandline)
 
 ```
 tflite_convert --saved_model_dir=Tensorflow\workspace\models\my_ssd_mobnet\export\saved_model --output_file=Tensorflow\workspace\models\my_ssd_mobnet\tfliteexport\detect.tflite --input_shapes=4,640,640,3 --input_arrays=normalized_input_image_tensor --output_arrays='TFLite_Detection_PostProcess','TFLite_Detection_PostProcess:1','TFLite_Detection_PostProcess:2','TFLite_Detection_PostProcess:3' --inference_type=FLOAT --allow_custom_ops
 ```
+
+<img src=""/>
 
 ### 9. Test TFLite converted model (inference test)
 Before running this test, make sure there are test images in the folder:
@@ -110,6 +125,9 @@ Run below script to make the inference test:
 ```
 python detect_image_tflite.py --tf_model Tensorflow\workspace\models\my_ssd_mobnet\tfliteexport\detect.tflite  --tf_labels Tensorflow\workspace\models\my_ssd_mobnet\tfliteexport\labels.txt --threshold .5 --images_folder Tensorflow\workspace\images\detect_image --output_path Tensorflow\workspace\images\detect_tflite_res
 ```
+
+<img src="https://github.com/DiversityDatabaseProject/Tensorflow_ObjectDetection/blob/main/img/win_detect_res_tflite.PNG"/>
+
 ## TOOLS
 ### Image Labeller
 Run below script to configure, download and launch an image labeller.<br>
