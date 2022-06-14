@@ -113,7 +113,7 @@ Copy labels.txt to tfliteexport folder:
 cp .\utils\labels.txt .\Tensorflow\workspace\models\my_ssd_mobnet\tfliteexport
 ```
 
-<img src=""/>
+<img src="https://github.com/DiversityDatabaseProject/Tensorflow_ObjectDetection/blob/main/img/win_tflite_conversion.PNG"/>
 
 ### 9. Test TFLite converted model (inference test)
 Before running this test, make sure there are test images in the folder:
