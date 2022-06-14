@@ -108,6 +108,11 @@ Press 'q' to quit.
 tflite_convert --saved_model_dir=Tensorflow\workspace\models\my_ssd_mobnet\export\saved_model --output_file=Tensorflow\workspace\models\my_ssd_mobnet\tfliteexport\detect.tflite --input_shapes=4,640,640,3 --input_arrays=normalized_input_image_tensor --output_arrays='TFLite_Detection_PostProcess','TFLite_Detection_PostProcess:1','TFLite_Detection_PostProcess:2','TFLite_Detection_PostProcess:3' --inference_type=FLOAT --allow_custom_ops
 ```
 
+Copy labels.txt to tfliteexport folder:
+```
+cp .\utils\labels.txt .\Tensorflow\workspace\models\my_ssd_mobnet\tfliteexport
+```
+
 <img src=""/>
 
 ### 9. Test TFLite converted model (inference test)
