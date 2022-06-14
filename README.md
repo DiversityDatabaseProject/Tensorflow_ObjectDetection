@@ -29,10 +29,17 @@ For Ubuntu:
 ```
 <img src="https://github.com/DiversityDatabaseProject/Tensorflow_ObjectDetection/blob/main/img/win_init_screenshot.PNG"/>
 
+### Possible Issue
+If there are issues on requirements.txt installations and some python packages were not installed, just run pip install again:
+```
+pip3 install -r requirements.txt
+```
+
 To verify the installation:
 ```
 python Tensorflow/models/research/object_detection/builders/model_builder_tf2_test.py
 ```
+
 <img src="https://github.com/DiversityDatabaseProject/Tensorflow_ObjectDetection/blob/main/img/win_verify_installation.PNG"/>
   
 ### 2. Model Training set up and configs
