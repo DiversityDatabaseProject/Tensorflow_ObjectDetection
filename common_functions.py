@@ -37,6 +37,7 @@ paths = {
  }
 
 files = {
+    'PRE_TRAINED_CONFIG': os.path.join(config['MODELS']['MODEL_FPN_PATH'],'pipeline.config'),
     'PIPELINE_CONFIG': config['TRAIN']['PIPELINE_CONFIG'],
     'LABELMAP': os.path.join(paths['ANNOTATION_PATH'], LABEL_MAP_NAME),
     'DETECTED_IMAGE': os.path.join(paths['DETECT_RES_PATH'], DETECTED_IMAGE_NAME),
@@ -51,12 +52,17 @@ for path in paths.values():
         if os.name == 'nt':
             os.makedirs(path)
 
-@tf.function
-def detect_fn(image):
-    """Detect objects in image."""
+def getDetectionModel():
     configs = config_util.get_configs_from_pipeline_file(files['PIPELINE_CONFIG'])
     detection_model = model_builder.build(model_config=configs['model'], is_training=False)
-    image, shapes = detection_model.preprocess(image)
-    prediction_dict = detection_model.predict(image, shapes)
-    detections = detection_model.postprocess(prediction_dict, shapes)
+    return detection_model
+
+@tf.function
+def detect_fn(image, model):
+    """Detect objects in image."""
+    #configs = config_util.get_configs_from_pipeline_file(files['PIPELINE_CONFIG'])
+    #detection_model = getDetectionModel() model_builder.build(model_config=configs['model'], is_training=False)
+    image, shapes = model.preprocess(image)
+    prediction_dict = model.predict(image, shapes)
+    detections = model.postprocess(prediction_dict, shapes)
     return detections

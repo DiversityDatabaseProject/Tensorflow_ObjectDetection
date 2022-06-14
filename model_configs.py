@@ -8,6 +8,7 @@ Source: https://github.com/nicknochnack/TFODCourse
 import os
 import tensorflow as tf
 from object_detection.protos import pipeline_pb2
+from object_detection.utils import config_util
 from google.protobuf import text_format
 import urllib.request
 import tarfile
@@ -50,12 +51,14 @@ def create_pipeline_config():
     #config_override: A pipeline_pb2.TrainEvalPipelineConfig text proto to override pipeline_config_path.
 
     #Script from: https://github.com/tensorflow/models/blob/master/research/object_detection/utils/config_util.py 
-    pipeline_config = pipeline_pb2.TrainEvalPipelineConfig()
+    
 
-    with tf.io.gfile.GFile(cf.files['PIPELINE_CONFIG'], "r") as f:
+    pipeline_config = pipeline_pb2.TrainEvalPipelineConfig()
+    
+    with tf.io.gfile.GFile(cf.files['PRE_TRAINED_CONFIG'], "r") as f:
         proto_str = f.read()
         text_format.Merge(proto_str, pipeline_config)
-
+    
     pipeline_config.model.ssd.num_classes = 1
     pipeline_config.train_config.batch_size = 4
     pipeline_config.train_config.fine_tune_checkpoint = os.path.join(cf.paths['PRETRAINED_MODEL_PATH'],cf.PRETRAINED_MODEL_NAME, 'checkpoint', 'ckpt-0')
@@ -68,9 +71,8 @@ def create_pipeline_config():
     config_text = text_format.MessageToString(pipeline_config)
     with tf.io.gfile.GFile(cf.files['PIPELINE_CONFIG'], "wb") as f:
         f.write(config_text)
-
+    print(cf.files['PIPELINE_CONFIG'])
 if __name__ == '__main__':
-    #urllib.request.urlretrieve(cf.PRETRAINED_MODEL_URL, cf.files['UNZIPPED_MODEL_NAME'])
     setup_pretrained_model()
     create_label_map()
     create_pipeline_config()

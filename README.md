@@ -60,7 +60,13 @@ python Tensorflow\models\research\object_detection\model_main_tf2.py --model_dir
 python Tensorflow\models\research\object_detection\model_main_tf2.py --model_dir=Tensorflow\workspace\models\my_ssd_mobnet --pipeline_config_path=Tensorflow\workspace\models\my_ssd_mobnet\pipeline.config --checkpoint_dir=Tensorflow\workspace\models\my_ssd_mobnet
 ```
 
-### 5. Test Image Detection (Inference test)
+
+### 5. Save the Model (Freezing the Graph)
+```
+python Tensorflow\models\research\object_detection\export_tflite_graph_tf2.py  --pipeline_config_path=Tensorflow\workspace\models\my_ssd_mobnet\pipeline.config --trained_checkpoint_dir=Tensorflow\workspace\models\my_ssd_mobnet --output_directory=Tensorflow\workspace\models\my_ssd_mobnet\export
+```
+
+### 6. Test Image Detection (Inference test)
 Before running this test, make sure there are test images in the folder:
 ```
 Tensorflow\workspace\images\detect_image
@@ -75,21 +81,17 @@ Make sure that the workspace folder and test images exist before running the scr
 python detect_from_image.py  --checkpoint Tensorflow\workspace\models\my_ssd_mobnet\ckpt-51 --label_map Tensorflow\workspace\annotations\label_map.pbtxt --threshold .5 --images_folder Tensorflow\workspace\images\detect_image --output_path Tensorflow\workspace\images\detect_res
 ```
 
-### 6. Test Camera Detection
+### 7. Test Camera Detection
 Note: for some reason, I did not see the detections from my camera.<br>
 TODO: check the codes for issues
 ```
 python detect_from_cam.py
 ```
 
-### 7. Save the Model (Freezing the Graph)
-```
-python Tensorflow\models\research\object_detection\exporter_main_v2.py  --input_type=image_tensor --pipeline_config_path=Tensorflow\workspace\models\my_ssd_mobnet\pipeline.config --trained_checkpoint_dir=Tensorflow\workspace\models\my_ssd_mobnet --output_directory=Tensorflow\workspace\models\my_ssd_mobnet\export
-```
+### 8. Convert to TFLite (commandline)
 
-### 8. Convert to TFLite
 ```
-python Tensorflow\models\research\object_detection\export_tflite_graph_tf2.py --input_shapes=4,640,640,3 --input_arrays=normalized_input_image_tensor --output_arrays='TFLite_Detection_PostProcess','TFLite_Detection_PostProcess:1','TFLite_Detection_PostProcess:2','TFLite_Detection_PostProcess:3' --inference_type=FLOAT --allow_custom_ops
+tflite_convert --saved_model_dir=Tensorflow\workspace\models\my_ssd_mobnet\export\saved_model --output_file=Tensorflow\workspace\models\my_ssd_mobnet\tfliteexport\detect.tflite --input_shapes=4,640,640,3 --input_arrays=normalized_input_image_tensor --output_arrays='TFLite_Detection_PostProcess','TFLite_Detection_PostProcess:1','TFLite_Detection_PostProcess:2','TFLite_Detection_PostProcess:3' --inference_type=FLOAT --allow_custom_ops
 ```
 
 ### 9. Test TFLite converted model (inference test)

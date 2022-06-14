@@ -11,13 +11,29 @@ Modifications: Maria Rosario SEBASTIAN, May 2022
 import os
 import argparse
 import tensorflow as tf
-from object_detection.utils import label_map_util
+from object_detection.utils import label_map_util, config_util
 from object_detection.utils import visualization_utils as viz_utils
 import cv2 
 import numpy as np
 from matplotlib import pyplot as plt
 import common_functions as cf
 import glob
+import configparser
+import tensorflow as tf
+from object_detection.builders import model_builder
+
+##########
+# Load pipeline config and build a detection model
+configs = config_util.get_configs_from_pipeline_file(cf.files['PIPELINE_CONFIG'])
+detection_model = model_builder.build(model_config=configs['model'], is_training=False)
+
+@tf.function
+def detect_fn(image):
+    """Detect objects in image."""
+    image, shapes = detection_model.preprocess(image)
+    prediction_dict = detection_model.predict(image, shapes)
+    detections = detection_model.postprocess(prediction_dict, shapes)
+    return detections
 
 def main(args):
     CHECKPOINT = args['checkpoint']
@@ -30,8 +46,10 @@ def main(args):
     if PARAM_THRESHOLD is not None:
         MIN_THRESHOLD = float(PARAM_THRESHOLD)
 
+
+    #########
     # Restore checkpoint
-    ckpt = tf.compat.v2.train.Checkpoint(model=cf.detection_model)
+    ckpt = tf.compat.v2.train.Checkpoint(model=detection_model)
     # Selecting our most train model
     ckpt.restore(CHECKPOINT).expect_partial()
 
@@ -50,7 +68,7 @@ def main(args):
 
         # Converting image to a tensor and the detection function 
         input_tensor = tf.convert_to_tensor(np.expand_dims(image_np, 0), dtype=tf.float32)
-        detections = cf.detect_fn(input_tensor)
+        detections = detect_fn(input_tensor)
 
         # All outputs are batches tensors.
         # Convert to numpy arrays, and take index [0] to remove the batch dimension.
