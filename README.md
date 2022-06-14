@@ -87,6 +87,7 @@ TODO: check the codes for issues
 ```
 python detect_from_cam.py
 ```
+Press 'q' to quit.
 
 ### 8. Convert to TFLite (commandline)
 
@@ -99,13 +100,15 @@ Before running this test, make sure there are test images in the folder:
 ```
 Tensorflow\workspace\images\detect_image
 ```
+TODO: add script to copy label.txt in tfliteexport folder
+
 This script will make an inference on the images in the above folder and save the results in this folder:
 ```
 Tensorflow\workspace\images\detect_image\detect_tflite_res
 ```
 Run below script to make the inference test:
 ```
-python detect_image_tflite.py --tf_model Tensorflow\workspace\models\my_ssd_mobnet\tfliteexport\detect_cl.tflite  --tf_labels Tensorflow\workspace\models\my_ssd_mobnet\tfliteexport\labels.txt --threshold .5 --images_folder Tensorflow\workspace\images\detect_image --output_path Tensorflow\workspace\images\detect_tflite_res
+python detect_image_tflite.py --tf_model Tensorflow\workspace\models\my_ssd_mobnet\tfliteexport\detect.tflite  --tf_labels Tensorflow\workspace\models\my_ssd_mobnet\tfliteexport\labels.txt --threshold .5 --images_folder Tensorflow\workspace\images\detect_image --output_path Tensorflow\workspace\images\detect_tflite_res
 ```
 ## TOOLS
 ### Image Labeller
