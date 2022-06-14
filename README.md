@@ -120,7 +120,6 @@ Before running this test, make sure there are test images in the folder:
 ```
 Tensorflow\workspace\images\detect_image
 ```
-TODO: add script to copy label.txt in tfliteexport folder
 
 This script will make an inference on the images in the above folder and save the results in this folder:
 ```
@@ -163,7 +162,7 @@ python s3_utils.py --opt download --from bucket/folder --to local/path
 <a href="https://www.tensorflow.org/lite/examples/object_detection/overview"> TFLite Object Detection Article</a><br>
 <a href="https://github.com/tzutalin/labelImg">Image Labeller</a>
 
-## TODO
+## Improvements needed
 
 - include default values to python parameters, if none given by user
 - test the bash and powershell scripts
