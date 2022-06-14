@@ -162,7 +162,7 @@ Note: Below script will download all files from S3 Bucket folder to the local fo
 python s3_utils.py --opt download --from bucket/folder --to local/path
 ```
 
-### Resources
+## Resources
 <a href="https://github.com/nicknochnack/TFODCourse">Full Object Detection Course Github Repo</a><br>
 <a href="https://github.com/TannerGilbert/Tensorflow-Lite-Object-Detection-with-the-Tensorflow-Object-Detection-API">Tensorflow Lite Object Detection API Github Repo</a><br>
 <a href="https://www.tensorflow.org/lite/convert">TFLite Conversion Article</a><br>
