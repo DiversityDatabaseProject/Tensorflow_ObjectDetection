@@ -107,7 +107,7 @@ python detect_from_cam.py
 ```
 Press 'q' to quit.
 
-<img src="https://github.com/DiversityDatabaseProject/Tensorflow_ObjectDetection/blob/main/img/win_live_cam_detection.PNG"/>
+<img width="640" height="480" src="https://github.com/DiversityDatabaseProject/Tensorflow_ObjectDetection/blob/main/img/win_live_cam_detection.PNG"/>
 
 ### 8. Convert to TFLite (commandline)
 
