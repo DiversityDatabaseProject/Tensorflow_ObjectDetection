@@ -162,6 +162,7 @@ Run below script to make the inference test:
 ```
 python detect_image_tflite.py --tf_model Tensorflow\workspace\models\my_ssd_mobnet\tfliteexport\detect_quantized.tflite  --tf_labels Tensorflow\workspace\models\my_ssd_mobnet\tfliteexport\labels.txt --threshold .5 --images_folder Tensorflow\workspace\images\detect_image --output_path Tensorflow\workspace\images\detect_tflite_quantized_res
 ```
+<img src="https://github.com/DiversityDatabaseProject/Tensorflow_ObjectDetection/blob/main/img/win_detect_res_tflite_quantized.PNG"/>
 
 ## TOOLS
 ### Image Labeller
