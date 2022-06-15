@@ -201,4 +201,3 @@ python s3_utils.py --opt download --from bucket/folder --to local/path
 - test the bash scripts
 - add error handling in the scripts
 - add unit tests in python codes
-- check the codes for camera detection issues
