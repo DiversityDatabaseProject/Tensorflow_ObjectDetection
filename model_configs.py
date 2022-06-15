@@ -12,9 +12,10 @@ from object_detection.utils import config_util
 from google.protobuf import text_format
 import urllib.request
 import tarfile
-import common_functions as cf
+import load_configs as cf
 
 def setup_pretrained_model():
+    ''' Set up pre*trained model paths '''
     # Download pre-trained model
     urllib.request.urlretrieve(cf.PRETRAINED_MODEL_URL, cf.files['UNZIPPED_MODEL_NAME'])
 
@@ -22,10 +23,7 @@ def setup_pretrained_model():
 
     # Create extract folder
     if not os.path.exists(cf.paths['PRETRAINED_MODEL_PATH']):
-            if os.name == 'posix':
-                os.makedirs(cf.paths['PRETRAINED_MODEL_PATH'])
-            if os.name == 'nt':
-                os.makedirs(cf.paths['PRETRAINED_MODEL_PATH'])
+        os.makedirs(cf.paths['PRETRAINED_MODEL_PATH'])
 
     # Extract to folder
     my_tar.extractall(cf.paths['PRETRAINED_MODEL_PATH'])
@@ -33,7 +31,7 @@ def setup_pretrained_model():
 
 
 def create_label_map():
-    #creating a map to the label in a text file 
+    ''' creating a map to the label in a text file ''' 
     label_list = [{'name':'face', 'id':1}]
 
     with open(cf.files['LABELMAP'], 'w') as f:
@@ -44,13 +42,13 @@ def create_label_map():
             f.write('}\n')
 
 def create_pipeline_config():
-    #Using protocol buffer to process the config file
+    ''' Using protocol buffer to process the config file
 
-    #Reads config from a file containing pipeline_pb2.TrainEvalPipelineConfig.
-    #Args: pipeline_config_path: Path to pipeline_pb2.TrainEvalPipeline Config text proto.
-    #config_override: A pipeline_pb2.TrainEvalPipelineConfig text proto to override pipeline_config_path.
+    Reads config from a file containing pipeline_pb2.TrainEvalPipelineConfig.
+    Args: pipeline_config_path: Path to pipeline_pb2.TrainEvalPipeline Config text proto.
+    config_override: A pipeline_pb2.TrainEvalPipelineConfig text proto to override pipeline_config_path.
 
-    #Script from: https://github.com/tensorflow/models/blob/master/research/object_detection/utils/config_util.py 
+    Script from: https://github.com/tensorflow/models/blob/master/research/object_detection/utils/config_util.py '''
     
 
     pipeline_config = pipeline_pb2.TrainEvalPipelineConfig()
@@ -72,6 +70,7 @@ def create_pipeline_config():
     with tf.io.gfile.GFile(cf.files['PIPELINE_CONFIG'], "wb") as f:
         f.write(config_text)
     print(cf.files['PIPELINE_CONFIG'])
+    
 if __name__ == '__main__':
     setup_pretrained_model()
     create_label_map()

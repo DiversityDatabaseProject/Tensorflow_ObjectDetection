@@ -1,13 +1,10 @@
 '''
-This python script contains constants and function that are used by the other codes.
+This python script loads config file values.
 Author: Maria Rosario SEBASTIAN
 Date: May 2022
 '''
 import os
 import configparser
-import tensorflow as tf
-from object_detection.builders import model_builder
-from object_detection.utils import config_util
 
 config = configparser.ConfigParser()
 config.read('utils/config.ini')
@@ -18,6 +15,9 @@ PRETRAINED_MODEL_NAME = config['MODELS']['PRETRAINED_MODEL_NAME']
 UNZIPPED_MODEL = config['MODELS']['UNZIPPED_MODEL']
 PRETRAINED_MODEL_URL = config['MODELS']['PRETRAINED_MODEL_URL']
 LABEL_MAP_NAME=config['TRAIN']['LABEL_MAP_NAME']
+SAVED_MODEL_DIR = config['MODELS']['SAVED_MODEL_DIR']
+TFLITE_MODEL_QUANTIZED = config['MODELS']['TFLITE_MODEL_QUANTIZED']
+SAVED_MODEL_UPDATED = config['MODELS']['SAVED_MODEL_UPDATED'] 
 
 #cluster model folder
 CUSTOM_MODEL_NAME = 'my_ssd_mobnet'
@@ -43,26 +43,3 @@ files = {
     'DETECTED_IMAGE': os.path.join(paths['DETECT_RES_PATH'], DETECTED_IMAGE_NAME),
     'UNZIPPED_MODEL_NAME': os.path.join(paths['PRETRAINED_MODEL_PATH'], UNZIPPED_MODEL)
 }
-
-#Create directories if not existing
-for path in paths.values():
-    if not os.path.exists(path):
-        if os.name == 'posix':
-            os.makedirs(path)
-        if os.name == 'nt':
-            os.makedirs(path)
-
-def getDetectionModel():
-    configs = config_util.get_configs_from_pipeline_file(files['PIPELINE_CONFIG'])
-    detection_model = model_builder.build(model_config=configs['model'], is_training=False)
-    return detection_model
-
-@tf.function
-def detect_fn(image, model):
-    """Detect objects in image."""
-    #configs = config_util.get_configs_from_pipeline_file(files['PIPELINE_CONFIG'])
-    #detection_model = getDetectionModel() model_builder.build(model_config=configs['model'], is_training=False)
-    image, shapes = model.preprocess(image)
-    prediction_dict = model.predict(image, shapes)
-    detections = model.postprocess(prediction_dict, shapes)
-    return detections

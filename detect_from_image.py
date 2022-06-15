@@ -16,7 +16,7 @@ from object_detection.utils import visualization_utils as viz_utils
 import cv2 
 import numpy as np
 from matplotlib import pyplot as plt
-import common_functions as cf
+import load_configs as cf
 import glob
 import configparser
 import tensorflow as tf

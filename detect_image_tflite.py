@@ -56,7 +56,9 @@ def main(args):
     width = input_details[0]['shape'][2]
 
     floating_model = (input_details[0]['dtype'] == np.float32)
-
+    print('floating_model: ',floating_model)
+    print('input_details: ',input_details)
+    print('output_details: ',output_details)
     input_mean = 127.5
     input_std = 127.5
 
@@ -68,7 +70,7 @@ def main(args):
         imH, imW, _ = image.shape 
         image_resized = cv2.resize(image_rgb, (width, height))
         input_data = np.expand_dims(image_resized, axis=0)
-
+        print('input_data: ',input_data)
         # Normalize pixel values if using a floating model (i.e. if model is non-quantized)
         if floating_model:
             input_data = (np.float32(input_data) - input_mean) / input_std
@@ -76,18 +78,18 @@ def main(args):
         # Perform the actual detection by running the model with the image as input
         interpreter.set_tensor(input_details[0]['index'],input_data)
         interpreter.invoke()
-
+        print('invoke interpreter: ')
         # Retrieve detection results
         boxes = interpreter.get_tensor(output_details[1]['index'])[0] # Bounding box coordinates of detected objects, 0
+        print('*************boxes: ', boxes)
         classes = interpreter.get_tensor(output_details[3]['index'])[0] # Class index of detected objects, 5
+        print('*************classes: ', classes)
         scores = interpreter.get_tensor(output_details[0]['index'])[0] # Confidence of detected objects, 1
         #num = interpreter.get_tensor(output_details[3]['index'])[0]  # Total number of detected objects (inaccurate and not needed)
 
-        #print('*************boxes: ', boxes)
-        #print('*************classes: ', classes)
-        #print('*************scores: ', scores)
-        #print('*************len(scores): ', len(scores))
-        #print('*************labels[int(classes[0])]: ',labels[int(classes[0])])
+        print('*************scores: ', scores)
+        print('*************len(scores): ', len(scores))
+        print('*************labels[int(classes[0])]: ',labels[int(classes[0])])
         
         ctr=0
         # Loop over all detections and draw detection box if confidence is above minimum threshold

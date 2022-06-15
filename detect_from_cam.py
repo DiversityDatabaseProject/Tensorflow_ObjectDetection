@@ -3,7 +3,6 @@ This python script uses the saved model for detecting faces using the computer's
 Refactored from a code on Jupyter notebook.
 Source: https://github.com/nicknochnack/TFODCourse
 Modifications: Maria Rosario SEBASTIAN, May 2022
-Note: This code does not currently work, needs to be fixed
 '''
 from object_detection.utils import visualization_utils as viz_utils
 from object_detection.utils import label_map_util, config_util
@@ -11,12 +10,18 @@ from object_detection.builders import model_builder
 import cv2
 import tensorflow as tf
 import numpy as np
-import common_functions as cf
+import load_configs as cf
+import os
 
-##########
 # Load pipeline config and build a detection model
 configs = config_util.get_configs_from_pipeline_file(cf.files['PIPELINE_CONFIG'])
+print (configs)
 detection_model = model_builder.build(model_config=configs['model'], is_training=False)
+
+# Restore checkpoint
+ckpt = tf.compat.v2.train.Checkpoint(model=detection_model)
+# Selecting our most train model
+ckpt.restore(os.path.join(cf.paths['CHECKPOINT_PATH'], 'ckpt-51')).expect_partial()
 
 @tf.function
 def detect_fn(image):
@@ -26,13 +31,14 @@ def detect_fn(image):
     detections = detection_model.postprocess(prediction_dict, shapes)
     return detections
 
+# select our face label
+category_index = label_map_util.create_category_index_from_labelmap(cf.files['LABELMAP'])
+print(category_index)
+
 cap = cv2.VideoCapture(0)
 width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
 height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
 
-# select our face label
-category_index = label_map_util.create_category_index_from_labelmap(cf.files['LABELMAP'])
-print(category_index)
 
 while cap.isOpened(): 
     ret, frame = cap.read()

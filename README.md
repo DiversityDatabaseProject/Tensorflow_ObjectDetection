@@ -139,6 +139,28 @@ python detect_image_tflite.py --tf_model Tensorflow\workspace\models\my_ssd_mobn
 
 <img src="https://github.com/DiversityDatabaseProject/Tensorflow_ObjectDetection/blob/main/img/win_detect_res_tflite.PNG"/>
 
+### 10. TFLite Quantization
+Post-training quantization is a conversion technique that can reduce model size while also improving CPU and hardware accelerator latency, with little degradation in model accuracy. You can quantize an already-trained float TensorFlow model when you convert it to TensorFlow Lite format using the TensorFlow Lite Converter.
+
+```
+python tflite_convert_quantized.py
+```
+
+### 9. Test TFLite quantized model (inference test)
+Before running this test, make sure there are test images in the folder:
+```
+Tensorflow\workspace\images\detect_image
+```
+
+This script will make an inference on the images in the above folder and save the results in this folder:
+```
+Tensorflow\workspace\images\detect_image\detect_tflite_quantized_res
+```
+Run below script to make the inference test:
+```
+python detect_image_tflite.py --tf_model Tensorflow\workspace\models\my_ssd_mobnet\tfliteexport\detect_quantized.tflite  --tf_labels Tensorflow\workspace\models\my_ssd_mobnet\tfliteexport\labels.txt --threshold .5 --images_folder Tensorflow\workspace\images\detect_image --output_path Tensorflow\workspace\images\detect_tflite_quantized_res
+```
+
 ## TOOLS
 ### Image Labeller
 Run below script to configure, download and launch an image labeller.<br>
@@ -167,6 +189,7 @@ python s3_utils.py --opt download --from bucket/folder --to local/path
 <a href="https://github.com/TannerGilbert/Tensorflow-Lite-Object-Detection-with-the-Tensorflow-Object-Detection-API">Tensorflow Lite Object Detection API Github Repo</a><br>
 <a href="https://www.tensorflow.org/lite/convert">TFLite Conversion Article</a><br>
 <a href="https://www.tensorflow.org/lite/examples/object_detection/overview"> TFLite Object Detection Article</a><br>
+<a href="https://www.tensorflow.org/lite/performance/post_training_quantization">TFLite Post Training Quantization</a>
 <a href="https://github.com/tzutalin/labelImg">Image Labeller</a>
 
 ## Improvements needed
