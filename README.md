@@ -198,6 +198,7 @@ python s3_utils.py --opt download --from bucket/folder --to local/path
 ## Improvements needed
 
 - include default values to python parameters, if none given by user
-- test the bash and powershell scripts
+- test the bash scripts
 - add error handling in the scripts
+- add unit tests in python codes
 - check the codes for camera detection issues
