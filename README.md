@@ -140,11 +140,13 @@ python detect_image_tflite.py --tf_model Tensorflow\workspace\models\my_ssd_mobn
 <img src="https://github.com/DiversityDatabaseProject/Tensorflow_ObjectDetection/blob/main/img/win_detect_res_tflite.PNG"/>
 
 ### 10. TFLite Quantization
-Post-training quantization is a conversion technique that can reduce model size while also improving CPU and hardware accelerator latency, with little degradation in model accuracy. You can quantize an already-trained float TensorFlow model when you convert it to TensorFlow Lite format using the TensorFlow Lite Converter.
+<a href="https://www.tensorflow.org/lite/performance/post_training_quantization">Post-training quantization</a> is a conversion technique that can reduce model size while also improving CPU and hardware accelerator latency, with little degradation in model accuracy. You can quantize an already-trained float TensorFlow model when you convert it to TensorFlow Lite format using the TensorFlow Lite Converter.
 
 ```
-python tflite_convert_quantized.py
+python convert_tflite_quantized.py
 ```
+
+<img src="https://github.com/DiversityDatabaseProject/Tensorflow_ObjectDetection/blob/main/img/win_detect_tflite_quantization.PNG"/>
 
 ### 9. Test TFLite quantized model (inference test)
 Before running this test, make sure there are test images in the folder:
