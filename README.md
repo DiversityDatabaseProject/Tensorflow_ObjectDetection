@@ -25,7 +25,7 @@ For Windows:
 ```
 For Ubuntu:
 ```
-chmod -R ./ubuntu
+chmod -R 777 ./ubuntu
 ./ubuntu/init.sh
 ```
 <img src="https://github.com/DiversityDatabaseProject/Tensorflow_ObjectDetection/blob/main/img/win_init_screenshot.PNG"/>
