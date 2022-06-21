@@ -165,6 +165,23 @@ python detect_image_tflite.py --tf_model Tensorflow\workspace\models\my_ssd_mobn
 <img src="https://github.com/DiversityDatabaseProject/Tensorflow_ObjectDetection/blob/main/img/win_detect_res_tflite_quantized.PNG"/>
 
 ## TOOLS
+
+### Flask App for Saved Image and Live Camera Detection
+To run the flask application:
+```
+python app.py
+```
+Open a web browser and type the below address:
+```
+http://127.0.0.1:80
+```
+<img src="https://github.com/DiversityDatabaseProject/Tensorflow_ObjectDetection/blob/main/img/flask_app_index.PNG"></img><br><br>
+Upload files to save in a folder<br><br>
+<img src="https://github.com/DiversityDatabaseProject/Tensorflow_ObjectDetection/blob/main/img/flask_app_upload.PNG"></img><br><br>
+Show Detections<br><br>
+<img src="https://github.com/DiversityDatabaseProject/Tensorflow_ObjectDetection/blob/main/img/flask_app_detections.PNG"></img><br><br>
+<img src="https://github.com/DiversityDatabaseProject/Tensorflow_ObjectDetection/blob/main/img/flask_app_detections2.PNG"></img><br><br>
+Click on "Home", and "Live Camera Detections" to see the camera for face detection.
 ### Image Labeller
 Run below script to configure, download and launch an image labeller.<br>
 For Windows:
