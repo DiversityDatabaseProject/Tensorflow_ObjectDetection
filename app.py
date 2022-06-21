@@ -14,7 +14,6 @@ app = Flask(__name__, template_folder='./templates')
 app.config['MAX_CONTENT_LENGTH'] = 5 * 1024 * 1024
 app.config['UPLOAD_EXTENSIONS'] = ['.jpg', '.png', '.jpeg']
 app.config['UPLOAD_PATH'] = cf.IMAGE_UPLOAD
-#app.config['IMAGE_UPLOAD_RES'] = cf.IMAGE_UPLOAD_RES
 
 #create the folders for the image detection results
 date = datetime.datetime.now()
