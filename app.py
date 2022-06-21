@@ -65,6 +65,10 @@ def too_large(e):
 def index():
     return render_template('index.html')
 
+@app.route('/stop_cam')
+def stop_cam():
+    return render_template('index.html')
+
 @app.route('/face_detection_image')
 def face_detection_image():
     '''Upload images for face detection'''
@@ -118,7 +122,8 @@ def upload(filename):
 @app.route('/detect_cam')
 def detect_cam():
     app.logger.debug('Running camera detection')
-    return Response(det.detect(), mimetype='multipart/x-mixed-replace; boundary=frame')
+    det.detect()
+    return redirect('/')
 
 if __name__ == '__main__':
     #load_model()  # load model at the beginning once only

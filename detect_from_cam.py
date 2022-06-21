@@ -68,7 +68,7 @@ def detect():
                     min_score_thresh=.2,
                     agnostic_mode=False)
 
-        cv2.imshow('object detection',  cv2.resize(image_np_with_detections, (800, 600)))
+        cv2.imshow('object detection (press \'q\' to quit)',  cv2.resize(image_np_with_detections, (800, 600)))
         
         if cv2.waitKey(10) & 0xFF == ord('q'):
             cap.release()
