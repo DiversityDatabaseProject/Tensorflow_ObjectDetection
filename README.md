@@ -209,7 +209,9 @@ python s3_utils.py --opt download --from bucket/folder --to local/path
 <a href="https://github.com/TannerGilbert/Tensorflow-Lite-Object-Detection-with-the-Tensorflow-Object-Detection-API">Tensorflow Lite Object Detection API Github Repo</a><br>
 <a href="https://www.tensorflow.org/lite/convert">TFLite Conversion Article</a><br>
 <a href="https://www.tensorflow.org/lite/examples/object_detection/overview"> TFLite Object Detection Article</a><br>
-<a href="https://www.tensorflow.org/lite/performance/post_training_quantization">TFLite Post Training Quantization</a>
+<a href="https://www.tensorflow.org/lite/performance/post_training_quantization">TFLite Post Training Quantization</a><br>
+<a href="https://blog.miguelgrinberg.com/post/handling-file-uploads-with-flask">File Uploader</a><br>
+<a href="https://github.com/smoh/imageviewer">Image Viewer</a><br>
 <a href="https://github.com/tzutalin/labelImg">Image Labeller</a>
 
 ## Improvements needed
