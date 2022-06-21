@@ -23,6 +23,10 @@ SAVED_MODEL_UPDATED = config['MODELS']['SAVED_MODEL_UPDATED']
 CUSTOM_MODEL_NAME = 'my_ssd_mobnet'
 DETECTED_IMAGE_NAME = 'detection_test.png'
 
+#apps
+IMAGE_UPLOAD=config['APP']['IMAGE_UPLOAD']
+IMAGE_UPLOAD_RES=config['APP']['IMAGE_UPLOAD_RES']
+
 paths = {
     'WORKSPACE_PATH': os.path.join('Tensorflow', 'workspace'), # high level workspace
     'SCRIPTS_PATH': os.path.join('Tensorflow','GenerateTFRecord'),

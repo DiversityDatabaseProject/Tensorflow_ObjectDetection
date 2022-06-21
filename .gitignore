@@ -5,3 +5,5 @@ Tensorflow
 .env
 test
 notes.txt
+static/images/
+static/*.csv
