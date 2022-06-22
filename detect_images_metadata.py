@@ -8,9 +8,10 @@ import csv, glob
 
 def get_metadata(fn): 
     '''Opens an image, retrieves the image data, and puts the data into a dictionary'''
-    i = Image.open(fn)  
+    i = Image.open(fn)
+    fname=i.filename.replace("\\","/")
     ret = {
-    "Filename": i.filename.split("\\")[-1],
+    "Filename": fname.split("/")[-1],
     "Size": i.size,
     "Height": i.height,
     "Width": i.width,

@@ -88,7 +88,8 @@ def multipart_upload_boto3(file_path, bucket_path):
         #print("now =", now)
         # dd/mm/YY-H:M:S
         #dt_string = now.strftime("%d/%m/%Y-%H:%M:%S")
-        dest_file_name=file_to_upload.split('\\')[-1]
+        file_to_upload.replace("\\","/")
+        dest_file_name=file_to_upload.split('/')[-1]
         key=bucket_folder+'/'+dest_file_name
         file_to_upload_path=file_path+'/'+dest_file_name
         print('key: ', key)

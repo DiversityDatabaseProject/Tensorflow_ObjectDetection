@@ -113,7 +113,8 @@ def main(args):
                 cv2.putText(image, label, (xmin, label_ymin-7), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 0, 0), 2) # Draw label text
 
         # get the filename and save the image with detections to folder
-        filename=image_path.split('\\')[-1]
+        image_path.replace("\\","/")
+        filename=image_path.split('/')[-1]
         image_name = os.path.join(TF_INFERENCE_RES_FOLDER,filename)
         cv2.imwrite(image_name, image)
 
