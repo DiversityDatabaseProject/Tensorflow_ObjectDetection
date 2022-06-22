@@ -84,9 +84,8 @@ def face_detection(checkpoint, labelmap, test_images, detect_res, min_thresold):
                     agnostic_mode=False)
 
         plt.imshow(cv2.cvtColor(image_np_with_detections, cv2.COLOR_BGR2RGB))
-        image_path.replace("\\","/")
-        filename=image_path.split('/')[-1]
-        image_name = os.path.join(detect_res,filename)
+        filename=image_path.replace("\\","/")
+        image_name = os.path.join(detect_res,filename.split('/')[-1])
         plt.savefig(image_name)
 
 def main(args):
