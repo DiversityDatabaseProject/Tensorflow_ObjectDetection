@@ -49,7 +49,9 @@ def create_pipeline_config():
     config_override: A pipeline_pb2.TrainEvalPipelineConfig text proto to override pipeline_config_path.
 
     Script from: https://github.com/tensorflow/models/blob/master/research/object_detection/utils/config_util.py '''
-    
+    # Create detection results folder
+    if not os.path.exists(cf.paths['CHECKPOINT_PATH']):
+        os.makedirs(cf.paths['CHECKPOINT_PATH'])
 
     pipeline_config = pipeline_pb2.TrainEvalPipelineConfig()
     
