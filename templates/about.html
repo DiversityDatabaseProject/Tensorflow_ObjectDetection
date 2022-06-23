@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container" style="width:100%;">
+    <h3>About this application</h3>
+    <div style="padding: 2%;">This is a simple tool using Python and Flask app to detect faces on uploaded images and view the results on an image viewer as part of Machine Learning Project for <a href="https://www.datasciencetech.institute/">DataScience Tech Institute</a>.<br><br>There is also a live camera face detection (Windows only)<br><br>See <a href="https://github.com/DiversityDatabaseProject/Tensorflow_ObjectDetection#readme">README</a> file for full Machine Learning Project documentation.</div>
+    <div>
+        <img style="inline-size: 100%;" src="{{ url_for('static', filename='about/flaskapp.PNG') }}" >
+    </div>
+    <h3>Diversity Project Team</h3>
+    <div style="padding: 2%;">
+        <img style="inline-size: 100%;" src="{{ url_for('static', filename='about/flaskapp_about.PNG') }}" >
+    </div>
+</div>
+
+{% endblock %}

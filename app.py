@@ -15,24 +15,28 @@ app.config['MAX_CONTENT_LENGTH'] = 5 * 1024 * 1024
 app.config['UPLOAD_EXTENSIONS'] = ['.jpg', '.png', '.jpeg']
 app.config['UPLOAD_PATH'] = cf.IMAGE_UPLOAD
 
-#create the folders for the image detection results
-date = datetime.datetime.now()
-print(date.timestamp())
-datetime_string = str(date).split(' ')[0]+str(date.timestamp()).split('.')[0]+'_'+str(date.timestamp()).split('.')[1]
-resfoldername='detection_res_'+datetime_string
-uploadfoldername='saved_images_'+datetime_string
-#saved uploaded images path
-IMAGES_UPLOAD = os.path.join('static', 'images', uploadfoldername)
-os.makedirs(IMAGES_UPLOAD)
-#name and path of image detection results
-DETECTION_RESULTS_PATH=os.path.join('static', 'images', resfoldername)
-app.config['IMAGE_UPLOAD_RES'] = resfoldername
-os.makedirs(DETECTION_RESULTS_PATH)
-csvname = 'image_metadata_'+datetime_string+'.csv' #Name of saved csv
-#name and path of csv file
-TABLE_FILE = os.path.join('static',csvname)
-print('DETECTION_RESULTS_PATH: ', DETECTION_RESULTS_PATH)
-print('TABLE_FILE: ', TABLE_FILE)
+def image_det_setup():
+    '''Sets up files and folders for image detection'''
+    date = datetime.datetime.now()
+    print(date.timestamp())
+    datetime_string = str(date).split(' ')[0]+str(date.timestamp()).split('.')[0]+'_'+str(date.timestamp()).split('.')[1]
+    resfoldername='detection_res_'+datetime_string
+    uploadfoldername='saved_images_'+datetime_string
+    #saved uploaded images path
+    IMAGES_UPLOAD = os.path.join('static', 'images', uploadfoldername)
+    os.makedirs(IMAGES_UPLOAD)
+    app.config['IMAGES_UPLOAD']=IMAGES_UPLOAD
+    #name and path of image detection results
+    DETECTION_RESULTS_PATH=os.path.join('static', 'images', resfoldername)
+    app.config['IMAGE_UPLOAD_RES'] = resfoldername
+    os.makedirs(DETECTION_RESULTS_PATH)
+    app.config['DETECTION_RESULTS_PATH']=DETECTION_RESULTS_PATH
+    csvname = 'image_metadata_'+datetime_string+'.csv' #Name of saved csv
+    #name and path of csv file
+    TABLE_FILE = os.path.join('static',csvname)
+    app.config['TABLE_FILE']=TABLE_FILE
+    print('DETECTION_RESULTS_PATH: ', DETECTION_RESULTS_PATH)
+    print('TABLE_FILE: ', TABLE_FILE)
 
 @app.route('/goto', methods=['POST', 'GET'])    
 def goto():
@@ -64,6 +68,10 @@ def too_large(e):
 def index():
     return render_template('index.html')
 
+@app.route('/about')
+def about():
+    return render_template('about.html')
+
 @app.route('/stop_cam')
 def stop_cam():
     return render_template('index.html')
@@ -71,8 +79,9 @@ def stop_cam():
 @app.route('/face_detection_image')
 def face_detection_image():
     '''Upload images for face detection'''
-    files = os.listdir(DETECTION_RESULTS_PATH)
-    return render_template('file_upload.html', files=files)
+    image_det_setup() #set up files and folders
+    files = os.listdir(app.config['DETECTION_RESULTS_PATH'])
+    return render_template('file_upload.html', files=files, show_detect=0)
 
 @app.route('/face_detection_image', methods=['POST'])
 def upload_files():
@@ -84,16 +93,16 @@ def upload_files():
         if file_ext not in app.config['UPLOAD_EXTENSIONS'] or \
                 file_ext != validate_image(uploaded_file.stream):
             return "Invalid image", 400
-        uploaded_file.save(os.path.join(IMAGES_UPLOAD, filename))
+        uploaded_file.save(os.path.join(app.config['IMAGES_UPLOAD'], filename))
     return '', 204
 
 @app.route('/show_detections', methods=['GET'])
 def show_detections():
     '''Performs face detection on images in folder'''
     checkpoint_file=os.path.join(cf.paths['CHECKPOINT_PATH'], 'ckpt-51')
-    detect.face_detection(checkpoint=checkpoint_file, labelmap=cf.files['LABELMAP'], test_images=IMAGES_UPLOAD, detect_res=DETECTION_RESULTS_PATH, min_thresold=float(.5))
+    detect.face_detection(checkpoint=checkpoint_file, labelmap=cf.files['LABELMAP'], test_images=app.config['IMAGES_UPLOAD'], detect_res=app.config['DETECTION_RESULTS_PATH'], min_thresold=float(.5))
     #call the metadata creation function
-    metadata.create_image_metadata(resultspath=DETECTION_RESULTS_PATH, csvpath=TABLE_FILE)
+    metadata.create_image_metadata(resultspath=app.config['DETECTION_RESULTS_PATH'], csvpath=app.config['TABLE_FILE'])
     return redirect('/0')
 
 @app.route('/page_viewer')
@@ -102,7 +111,7 @@ def page_viewer():
 
 @app.route('/<int:ind>/')
 def image_view(ind=None):
-    table = read_table(TABLE_FILE)
+    table = read_table(app.config['TABLE_FILE'])
     pager = Pager(len(table))
     if ind >= pager.count:
         return render_template("404.html"), 404
@@ -116,7 +125,7 @@ def image_view(ind=None):
 
 @app.route('/uploads/<filename>')
 def upload(filename):
-    return send_from_directory(IMAGES_UPLOAD, filename)
+    return send_from_directory(app.config['IMAGES_UPLOAD'], filename)
 
 @app.route('/detect_cam')
 def detect_cam():
