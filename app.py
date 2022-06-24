@@ -1,7 +1,7 @@
 from werkzeug.utils import secure_filename
 import imghdr
 import os
-from flask import Flask,Response , request, render_template, redirect, send_from_directory
+from flask import Flask, request, render_template, redirect, send_from_directory
 from flask import Flask
 import detect_from_cam as det
 import load_configs as cf
@@ -31,10 +31,14 @@ def image_det_setup():
     app.config['IMAGE_UPLOAD_RES'] = resfoldername
     os.makedirs(DETECTION_RESULTS_PATH)
     app.config['DETECTION_RESULTS_PATH']=DETECTION_RESULTS_PATH
-    csvname = 'image_metadata_'+datetime_string+'.csv' #Name of saved csv
+    csv_res_name = 'image_metadata_'+datetime_string+'.csv' #Name of saved csv
+    csvname = 'csv_metadata.csv' #Name of saved csv
+    
     #name and path of csv file
     TABLE_FILE = os.path.join('static',csvname)
+    CSV_RES_FILE = os.path.join('static',csv_res_name)
     app.config['TABLE_FILE']=TABLE_FILE
+    app.config['CSV_RES_FILE']=CSV_RES_FILE
     print('DETECTION_RESULTS_PATH: ', DETECTION_RESULTS_PATH)
     print('TABLE_FILE: ', TABLE_FILE)
 
@@ -102,7 +106,8 @@ def show_detections():
     checkpoint_file=os.path.join(cf.paths['CHECKPOINT_PATH'], 'ckpt-51')
     detect.face_detection(checkpoint=checkpoint_file, labelmap=cf.files['LABELMAP'], test_images=app.config['IMAGES_UPLOAD'], detect_res=app.config['DETECTION_RESULTS_PATH'], min_thresold=float(.5))
     #call the metadata creation function
-    metadata.create_image_metadata(resultspath=app.config['DETECTION_RESULTS_PATH'], csvpath=app.config['TABLE_FILE'])
+    #metadata.create_image_metadata(resultspath=app.config['DETECTION_RESULTS_PATH'], csvpath=app.config['TABLE_FILE'])
+    metadata.write_image_metadata(metadatapath=app.config['TABLE_FILE'], resultspath=app.config['DETECTION_RESULTS_PATH'], csvpath=app.config['CSV_RES_FILE'])
     return redirect('/0')
 
 @app.route('/page_viewer')
@@ -111,7 +116,7 @@ def page_viewer():
 
 @app.route('/<int:ind>/')
 def image_view(ind=None):
-    table = read_table(app.config['TABLE_FILE'])
+    table = read_table(app.config['CSV_RES_FILE'])
     pager = Pager(len(table))
     if ind >= pager.count:
         return render_template("404.html"), 404

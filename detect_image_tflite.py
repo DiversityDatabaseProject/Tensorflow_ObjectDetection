@@ -73,7 +73,7 @@ def main(args):
         imH, imW, _ = image.shape 
         image_resized = cv2.resize(image_rgb, (width, height))
         input_data = np.expand_dims(image_resized, axis=0)
-        print('input_data: ',input_data)
+        #print('input_data: ',input_data)
         # Normalize pixel values if using a floating model (i.e. if model is non-quantized)
         if floating_model:
             input_data = (np.float32(input_data) - input_mean) / input_std
@@ -81,7 +81,7 @@ def main(args):
         # Perform the actual detection by running the model with the image as input
         interpreter.set_tensor(input_details[0]['index'],input_data)
         interpreter.invoke()
-        print('invoke interpreter: ')
+        #print('invoke interpreter: ')
         # Retrieve detection results
         boxes = interpreter.get_tensor(output_details[1]['index'])[0] # Bounding box coordinates of detected objects, 0
         print('*************boxes: ', boxes)

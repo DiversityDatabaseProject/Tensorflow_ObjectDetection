@@ -1,9 +1,9 @@
-<table class="table table-striped">
+<table class="table table-striped" style="table-layout: fixed; width: 100%">
     <tbody>
-      {% for key in ["Filename","Size","Height","Width","Format","Mode"] %}
+      {% for key in ["host","search_key","filename","url","ethnicity","description"] %}
       <tr>
-        <td><b>{{ key|e|capitalize }}</b></td>
-        <td>{{ data[key]|e }}</td>
+        <td width="25%" style="padding-right:0;"><b>{{ key|e|capitalize }}</b></td>
+        <td width="75%" style="word-wrap: break-word">{{ data[key]|e }}</td>
       </tr>
       {% endfor %}
     </tbody>

@@ -6,4 +6,4 @@ Tensorflow
 test
 notes.txt
 static/images/
-static/*.csv
+static/image_metadata_*.csv
