@@ -41,6 +41,9 @@ def main(args):
     if IM_DIR:
         PATH_TO_IMAGES = IM_DIR
         images = glob.glob(PATH_TO_IMAGES + '/*')
+        
+    if not os.path.exists(TF_INFERENCE_RES_FOLDER):
+        os.makedirs(TF_INFERENCE_RES_FOLDER)
 
     # Load the label map
     with open(TF_LABELMAP, 'r') as f:
@@ -56,9 +59,9 @@ def main(args):
     width = input_details[0]['shape'][2]
 
     floating_model = (input_details[0]['dtype'] == np.float32)
-    print('floating_model: ',floating_model)
-    print('input_details: ',input_details)
-    print('output_details: ',output_details)
+    #print('floating_model: ',floating_model)
+    #print('input_details: ',input_details)
+    #print('output_details: ',output_details)
     input_mean = 127.5
     input_std = 127.5
 
@@ -87,9 +90,9 @@ def main(args):
         scores = interpreter.get_tensor(output_details[0]['index'])[0] # Confidence of detected objects, 1
         #num = interpreter.get_tensor(output_details[3]['index'])[0]  # Total number of detected objects (inaccurate and not needed)
 
-        print('*************scores: ', scores)
-        print('*************len(scores): ', len(scores))
-        print('*************labels[int(classes[0])]: ',labels[int(classes[0])])
+        #print('*************scores: ', scores)
+        #print('*************len(scores): ', len(scores))
+        #print('*************labels[int(classes[0])]: ',labels[int(classes[0])])
         
         ctr=0
         # Loop over all detections and draw detection box if confidence is above minimum threshold
@@ -115,6 +118,7 @@ def main(args):
         # get the filename and save the image with detections to folder
         filename=image_path.replace("\\","/")
         image_name = os.path.join(TF_INFERENCE_RES_FOLDER,filename.split('/')[-1])
+        print(image_name)
         cv2.imwrite(image_name, image)
 
 if __name__ == '__main__':
