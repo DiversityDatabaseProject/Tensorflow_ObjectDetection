@@ -222,3 +222,4 @@ python s3_utils.py --opt download --from bucket/folder --to local/path
 - Python scripts could be refactored / optimized
 - Ubuntu bash scripts need to be refactored
 - Error handling in the scripts
+- Dockerize !!!
