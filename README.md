@@ -167,21 +167,22 @@ python detect_image_tflite.py --tf_model Tensorflow\workspace\models\my_ssd_mobn
 
 ## TOOLS
 
-### Flask App for Saved Image and Live Camera Detection
+### Flask App for Saved Images Detections (Windows and Ubuntu) and Live Camera Detection (Windows only)
+This application accepts images for upload, saves them in a folder, performs detections on the saved images, retrieves metadata, and displays detected images and metadata information on an image viewer on the browser. This is a way to make a link on the detections of the scraped images together with their metadata that we have gathered at the beginning of the project.<br><br>
+  <img src="https://github.com/DiversityDatabaseProject/Tensorflow_ObjectDetection/blob/main/img/flask_app_architecture.PNG"></a><br><br>
 To run the flask application:
 ```
 python app.py
 ```
 Open a web browser and type the below address:
 ```
-http://127.0.0.1:80
+http://127.0.0.1:5000
 ```
 <img src="https://github.com/DiversityDatabaseProject/Tensorflow_ObjectDetection/blob/main/img/flask_app_index.PNG"></img><br><br>
 Upload files to save in a folder<br><br>
 <img src="https://github.com/DiversityDatabaseProject/Tensorflow_ObjectDetection/blob/main/img/flask_app_upload.PNG"></img><br><br>
 Show Detections<br><br>
 <img src="https://github.com/DiversityDatabaseProject/Tensorflow_ObjectDetection/blob/main/img/flask_app_detections.PNG"></img><br><br>
-<img src="https://github.com/DiversityDatabaseProject/Tensorflow_ObjectDetection/blob/main/img/flask_app_detections2.PNG"></img><br><br>
 Click on "Home", and "Live Camera Detections" to see the camera for face detection.
 ### Image Labeller
 Run below script to configure, download and launch an image labeller.<br>
@@ -217,7 +218,7 @@ python s3_utils.py --opt download --from bucket/folder --to local/path
 
 ## Improvements needed
 
-- include default values to python parameters, if none given by user
-- test the bash scripts
-- add error handling in the scripts
-- add unit tests in python codes
+- Tests on Python and bash scripts
+- Python scripts could be refactored / optimized
+- Ubuntu bash scripts need to be refactored
+- Error handling in the scripts
