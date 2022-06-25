@@ -101,15 +101,13 @@ python detect_from_image.py  --checkpoint Tensorflow\workspace\models\my_ssd_mob
 <img src="https://github.com/DiversityDatabaseProject/Tensorflow_ObjectDetection/blob/main/img/win_detect_res.PNG"/>
   
 ### 7. Test Camera Detection
-Note: for some reason, I did not see the detections from my camera.<br>
-TODO: check the codes for issues
+To run the camera detection script:
 ```
 python detect_from_cam.py
 ```
+NOTE: If you don't see the window that opens the camera, check your task bar. It probably just didn't pop-up automatically. It should look like this:<br><br>
+<img width="640" height="480" src="https://github.com/DiversityDatabaseProject/Tensorflow_ObjectDetection/blob/main/img/win_live_cam_detection.PNG"/><br><br>
 Press 'q' to quit.
-
-<img width="640" height="480" src="https://github.com/DiversityDatabaseProject/Tensorflow_ObjectDetection/blob/main/img/win_live_cam_detection.PNG"/>
-
 ### 8. Convert to TFLite (commandline)
 
 ```
@@ -183,7 +181,9 @@ Upload files to save in a folder<br><br>
 <img src="https://github.com/DiversityDatabaseProject/Tensorflow_ObjectDetection/blob/main/img/flask_app_upload.PNG"></img><br><br>
 Show Detections<br><br>
 <img src="https://github.com/DiversityDatabaseProject/Tensorflow_ObjectDetection/blob/main/img/flask_app_detections.PNG"></img><br><br>
-Click on "Home", and "Live Camera Detections" to see the camera for face detection.
+Click on "Home", and "Live Camera Detections" to see the camera for face detection.<br><br>
+NOTE: If you don't see the window that opens the camera, check your task bar. It probably just didn't pop-up automatically. It should look like this:<br><br>
+<img width="640" height="480" src="https://github.com/DiversityDatabaseProject/Tensorflow_ObjectDetection/blob/main/img/win_live_cam_detection.PNG"/><br><br>
 ### Image Labeller
 Run below script to configure, download and launch an image labeller.<br>
 For Windows:
